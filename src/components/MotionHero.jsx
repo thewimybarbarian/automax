@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import HeroParticles from './HeroParticles'
+import CustomSelect from './CustomSelect'
 
 const logoSvg = '/images/auto-max-logo-3.png'
 
@@ -220,45 +221,30 @@ export default function MotionHero() {
           </div>
         </div>
 
-        {/* ── Vehicle search bar ── */}
-        <motion.div
-          className="relative z-10 mx-auto w-full max-w-5xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.5)] md:p-6 mx-6"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
-        >
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            <select className="w-full appearance-none border border-white/10 bg-white/10 backdrop-blur px-4 py-3.5 font-body text-sm text-text outline-none transition-colors focus:border-amber/50 cursor-pointer">
-              {makeOptions.map((opt) => (
-                <option key={opt} value={opt}>{opt}</option>
-              ))}
-            </select>
-            <select className="w-full appearance-none border border-white/10 bg-white/10 backdrop-blur px-4 py-3.5 font-body text-sm text-text outline-none transition-colors focus:border-amber/50 cursor-pointer">
-              {modelOptions.map((opt) => (
-                <option key={opt} value={opt}>{opt}</option>
-              ))}
-            </select>
-            <select className="w-full appearance-none border border-white/10 bg-white/10 backdrop-blur px-4 py-3.5 font-body text-sm text-text outline-none transition-colors focus:border-amber/50 cursor-pointer">
-              {priceOptions.map((opt) => (
-                <option key={opt} value={opt}>{opt}</option>
-              ))}
-            </select>
-            <select className="w-full appearance-none border border-white/10 bg-white/10 backdrop-blur px-4 py-3.5 font-body text-sm text-text outline-none transition-colors focus:border-amber/50 cursor-pointer">
-              {yearOptions.map((opt) => (
-                <option key={opt} value={opt}>{opt}</option>
-              ))}
-            </select>
-            <button className="inline-flex items-center justify-center gap-2 bg-amber px-6 py-3.5 font-body text-sm font-bold uppercase tracking-wider text-bg transition-all hover:bg-amber-light cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-5 w-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607z" />
-              </svg>
-              Search
-            </button>
-          </div>
-        </motion.div>
-        {/* Bottom spacer */}
-        <div className="h-16" />
+        {/* Bottom spacer for search bar overlap */}
+        <div className="h-28" />
       </section>
+
+      {/* ── Vehicle search bar — outside section to avoid overflow:hidden clipping dropdowns ── */}
+      <motion.div
+        className="relative z-20 mx-auto w-full max-w-5xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.5)] md:p-6 -mt-20 mx-4 sm:mx-6"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+      >
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <CustomSelect options={makeOptions} />
+          <CustomSelect options={modelOptions} />
+          <CustomSelect options={priceOptions} />
+          <CustomSelect options={yearOptions} />
+          <button className="inline-flex items-center justify-center gap-2 bg-amber px-6 py-3.5 font-body text-sm font-bold uppercase tracking-wider text-bg transition-all hover:bg-amber-light cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-5 w-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607z" />
+            </svg>
+            Search
+          </button>
+        </div>
+      </motion.div>
     </div>
   )
 }
