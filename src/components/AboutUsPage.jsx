@@ -1,21 +1,21 @@
 import { useFadeUp } from '../hooks/useFadeUp'
 
 const salesTeam = [
-  { name: 'Bob Brice', title: 'Sales Manager', initials: 'BB' },
-  { name: 'Shawn Stegall', title: 'Sales Manager', initials: 'SS' },
-  { name: 'Kelsi Gonzales', title: 'BDC Director', initials: 'KG' },
-  { name: 'Margo Hayes', title: 'Receptionist', initials: 'MH' },
-  { name: 'Angel Aguilar', title: 'Sales Professional', initials: 'AA' },
-  { name: 'Victor Rivera', title: 'Sales Professional', initials: 'VR' },
-  { name: 'Xavier Dennis', title: 'Sales Professional', initials: 'XD' },
+  { name: 'Bob Brice', title: 'Sales Manager', initials: 'BB', photo: '/images/BobBrice.webp' },
+  { name: 'Shawn Stegall', title: 'Sales Manager', initials: 'SS', photo: '/images/ShawnSegal.webp' },
+  { name: 'Kelsi Gonzales', title: 'BDC Director', initials: 'KG', photo: '/images/KelsiGonzales.webp' },
+  { name: 'Margo Hayes', title: 'Receptionist', initials: 'MH', photo: '/images/MargoHayes.webp' },
+  { name: 'Angel Aguilar', title: 'Sales Professional', initials: 'AA', photo: '/images/AngelAgular.webp' },
+  { name: 'Victor Rivera', title: 'Sales Professional', initials: 'VR', photo: '/images/VictorRivera.webp' },
+  { name: 'Xavier Dennis', title: 'Sales Professional', initials: 'XD', photo: '/images/XavierDennis.webp' },
 ]
 
 const serviceTeam = [
-  { name: 'Hailey Huff', title: 'Service Manager', initials: 'HH' },
+  { name: 'Hailey Huff', title: 'Service Manager', initials: 'HH', photo: '/images/HaileyHuff.webp' },
 ]
 
 const partsTeam = [
-  { name: 'Nancy Bratcher', title: 'Parts Manager', initials: 'NB' },
+  { name: 'Nancy Bratcher', title: 'Parts Manager', initials: 'NB', photo: '/images/NancyBratcher.webp' },
 ]
 
 const stats = [
@@ -62,11 +62,25 @@ function StaffCard({ person, index }) {
       className="fade-up bg-card border border-border overflow-hidden group hover:border-amber/50 hover:-translate-y-2 transition-all duration-500"
       style={{ transitionDelay: `${index * 80}ms` }}
     >
-      {/* Avatar header area */}
-      <div className="relative h-40 bg-gradient-to-br from-amber/20 via-card to-amber/5 group-hover:from-amber/30 group-hover:to-amber/10 transition-all duration-500 flex items-center justify-center">
-        <div className="w-20 h-20 bg-gradient-to-br from-amber to-amber-light flex items-center justify-center">
-          <span className="text-bg text-2xl font-bold font-heading">{person.initials}</span>
-        </div>
+      {/* Photo area */}
+      <div className="relative h-64 overflow-hidden bg-gradient-to-br from-amber/10 via-card to-card">
+        {person.photo ? (
+          <img
+            src={person.photo}
+            alt={person.name}
+            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="w-20 h-20 bg-gradient-to-br from-amber to-amber-light flex items-center justify-center">
+              <span className="text-bg text-2xl font-bold font-heading">{person.initials}</span>
+            </div>
+          </div>
+        )}
+        {/* Gradient overlay on hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-60" />
+        {/* Amber glow on hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-amber/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         {/* Decorative corner accents */}
         <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-amber/20 group-hover:border-amber/50 transition-colors duration-500" />
         <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-amber/20 group-hover:border-amber/50 transition-colors duration-500" />
