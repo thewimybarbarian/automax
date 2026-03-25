@@ -33,7 +33,7 @@ export default function HeadlightFlicker() {
 
   const headlightStyle = (left) => ({
     left,
-    top: '42%',
+    top: '52%',
     width: '2.2%',
     height: '4%',
     opacity: flash ? 1 : 0,
@@ -64,7 +64,7 @@ export default function HeadlightFlicker() {
         className="absolute"
         style={{
           left: '42%',
-          top: '46%',
+          top: '56%',
           width: '16%',
           height: '10%',
           opacity: flash ? 0.5 : 0,
