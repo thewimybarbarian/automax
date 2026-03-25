@@ -117,7 +117,7 @@ export default function HeroSection() {
         {/* Background image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=1920)' }}
+          style={{ backgroundImage: 'url(/images/hero.png)' }}
         />
         {/* Dark overlay with gradient */}
         <div className="absolute inset-0 bg-bg/75" />
