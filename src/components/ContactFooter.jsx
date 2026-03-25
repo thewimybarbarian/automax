@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useFadeUp } from '../hooks/useFadeUp'
 const logoSvg = '/images/auto-max-logo-3.png'
 
@@ -31,6 +32,66 @@ const serviceLinks = [
   'Special Finance',
 ]
 
+const departmentHours = {
+  Sales: [
+    { day: 'Monday - Saturday', time: '9:00 AM - 8:00 PM' },
+    { day: 'Sunday', time: 'Closed' },
+  ],
+  Service: [
+    { day: 'Monday - Friday', time: '8:00 AM - 6:00 PM' },
+    { day: 'Saturday', time: '8:00 AM - 2:00 PM' },
+    { day: 'Sunday', time: 'Closed' },
+  ],
+  Parts: [
+    { day: 'Monday - Friday', time: '8:00 AM - 6:00 PM' },
+    { day: 'Saturday', time: '8:00 AM - 2:00 PM' },
+    { day: 'Sunday', time: 'Closed' },
+  ],
+}
+
+function DepartmentHours() {
+  const [activeTab, setActiveTab] = useState('Sales')
+  const tabs = Object.keys(departmentHours)
+
+  return (
+    <div>
+      {/* Tab Switcher */}
+      <div className="flex border-b border-white/[0.08]">
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`relative flex-1 py-2 text-xs uppercase tracking-wider font-body font-semibold transition-colors duration-200 ${
+              activeTab === tab
+                ? 'text-amber'
+                : 'text-text-dim hover:text-text'
+            }`}
+          >
+            {tab}
+            <span
+              className={`absolute bottom-0 left-0 w-full h-[2px] bg-amber transition-opacity duration-200 ${
+                activeTab === tab ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          </button>
+        ))}
+      </div>
+
+      {/* Tab Content */}
+      <div className="mt-3 space-y-1.5">
+        {departmentHours[activeTab].map((row) => (
+          <div key={row.day} className="flex justify-between items-center text-sm font-body">
+            <span className="text-text-dim">{row.day}</span>
+            <span className={row.time === 'Closed' ? 'text-amber/70 font-medium' : 'text-text'}>
+              {row.time}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function MapPinIcon() {
   return (
     <svg
@@ -54,7 +115,14 @@ export default function ContactFooter() {
   return (
     <div ref={sectionRef}>
       {/* ── Visit Us Section ── */}
-      <section className="px-6 py-24 max-w-7xl mx-auto">
+      <section className="relative overflow-hidden">
+        {/* Car background */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: 'url(https://images.pexels.com/photos/1231643/pexels-photo-1231643.jpeg?auto=compress&cs=tinysrgb&w=1920)' }}
+        />
+        <div className="absolute inset-0 bg-bg/88" />
+      <div className="relative px-6 py-24 max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 fade-up">
           <span className="text-amber uppercase tracking-widest text-sm font-body">
@@ -71,7 +139,7 @@ export default function ContactFooter() {
           {locations.map((loc, i) => (
             <div
               key={loc.name}
-              className="fade-up bg-card border border-border border-t-2 border-t-amber/30 hover:border-t-amber p-8 transition-all duration-300 hover:-translate-y-1"
+              className="fade-up bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] border-t-2 border-t-amber/30 hover:border-amber/30 hover:bg-white/[0.07] hover:border-t-amber p-8 transition-all duration-300 hover:-translate-y-1"
               style={{ transitionDelay: `${i * 100}ms` }}
             >
               <MapPinIcon />
@@ -100,7 +168,7 @@ export default function ContactFooter() {
         </div>
 
         {/* CTA Card */}
-        <div className="fade-up bg-gradient-to-r from-amber/10 via-card to-amber/10 border border-amber/20 p-6 sm:p-10 text-center mt-8 sm:mt-12 overflow-hidden">
+        <div className="fade-up bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] bg-gradient-to-r from-amber/10 via-transparent to-amber/10 p-6 sm:p-10 text-center mt-8 sm:mt-12 overflow-hidden">
           <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-text font-body">
             Ready to Find Your{' '}
             <span className="font-heading italic text-amber">
@@ -128,10 +196,11 @@ export default function ContactFooter() {
             </a>
           </div>
         </div>
+      </div>
       </section>
 
       {/* ── Full Footer ── */}
-      <footer className="bg-card border-t border-border mt-12 sm:mt-20 pt-10 sm:pt-16 pb-6 sm:pb-8">
+      <footer className="bg-white/[0.03] backdrop-blur-sm border-t border-white/[0.06] mt-12 sm:mt-20 pt-10 sm:pt-16 pb-6 sm:pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           {/* Footer Grid */}
           <div className="fade-up">
@@ -184,42 +253,46 @@ export default function ContactFooter() {
                 </ul>
               </div>
 
-              {/* Hours & Contact */}
-              <div className="col-span-2 sm:col-span-2 lg:col-span-2 mt-2 sm:mt-0 pt-4 sm:pt-0 border-t border-border sm:border-none">
+              {/* Department Hours */}
+              <div className="col-span-2 sm:col-span-1 mt-2 sm:mt-0 pt-4 sm:pt-0 border-t border-border sm:border-none">
                 <h4 className="text-text font-semibold mb-3 sm:mb-4 text-sm uppercase tracking-wider font-body">
-                  Hours &amp; Contact
+                  Department Hours
                 </h4>
-                <div className="flex flex-col sm:flex-row lg:flex-col gap-4 sm:gap-8 lg:gap-0">
-                  <div className="lg:mb-5">
-                    <p className="text-text-dim text-sm font-body">
-                      Mon&ndash;Sat: 9AM&ndash;8PM
-                    </p>
-                    <p className="text-amber/70 text-sm font-medium font-body">
-                      Sunday: Closed
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">
-                    {locations.map((loc) => (
-                      <div key={loc.phone}>
-                        <span className="block text-text-dim text-xs font-body">
-                          {loc.name}
-                        </span>
-                        <a
-                          href={`tel:${loc.phone.replace(/[^\d+]/g, '')}`}
-                          className="text-text hover:text-amber transition-colors text-sm font-semibold font-body"
-                        >
-                          {loc.phone}
-                        </a>
-                      </div>
-                    ))}
-                  </div>
+                <DepartmentHours />
+                <a
+                  href="#schedule-service"
+                  className="inline-block mt-4 bg-amber hover:bg-amber-light text-bg font-bold px-5 py-2.5 text-xs uppercase tracking-wider skew-x-[-4deg] transition-colors duration-200 font-body"
+                >
+                  <span className="inline-block skew-x-[4deg]">Schedule Service</span>
+                </a>
+              </div>
+
+              {/* Contact */}
+              <div className="col-span-2 sm:col-span-1 mt-2 sm:mt-0 pt-4 sm:pt-0 border-t border-border sm:border-none">
+                <h4 className="text-text font-semibold mb-3 sm:mb-4 text-sm uppercase tracking-wider font-body">
+                  Contact
+                </h4>
+                <div className="grid grid-cols-1 gap-3">
+                  {locations.map((loc) => (
+                    <div key={loc.phone}>
+                      <span className="block text-text-dim text-xs font-body">
+                        {loc.name}
+                      </span>
+                      <a
+                        href={`tel:${loc.phone.replace(/[^\d+]/g, '')}`}
+                        className="text-text hover:text-amber transition-colors text-sm font-semibold font-body"
+                      >
+                        {loc.phone}
+                      </a>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
 
           {/* Bottom Bar */}
-          <div className="border-t border-border mt-8 sm:mt-12 pt-5 sm:pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4 fade-up">
+          <div className="border-t border-white/[0.06] mt-8 sm:mt-12 pt-5 sm:pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4 fade-up">
             <p className="text-text-dim text-xs sm:text-sm font-body">
               &copy; 2024 AutoMax Auto Group. All rights reserved.
             </p>

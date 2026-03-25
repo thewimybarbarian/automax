@@ -11,6 +11,8 @@ import MobileCTABar from './components/MobileCTABar'
 import TestimonialMarquee from './components/TestimonialMarquee'
 import AboutUsPage from './components/AboutUsPage'
 import PageTransition from './components/PageTransition'
+import TradeInSection from './components/TradeInSection'
+import FeatureSearch from './components/FeatureSearch'
 
 function App() {
   const [page, setPage] = useState(() => {
@@ -54,7 +56,11 @@ function App() {
             <hr className="section-divider" />
             <InventorySection />
             <hr className="section-divider" />
+            <FeatureSearch />
+            <hr className="section-divider" />
             <FinancingCalculator />
+            <hr className="section-divider" />
+            <TradeInSection />
             <hr className="section-divider" />
             <AboutSection />
             <hr className="section-divider" />
