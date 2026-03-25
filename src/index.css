@@ -90,3 +90,12 @@
   opacity: 1 !important;
   transform: translateY(0);
 }
+
+/* Hide scrollbar for filmstrip */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
