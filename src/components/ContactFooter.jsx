@@ -1,5 +1,5 @@
 import { useFadeUp } from '../hooks/useFadeUp'
-const logoSvg = '/images/automax-logo.png'
+const logoSvg = '/images/auto-max-logo-3.png'
 
 const locations = [
   {
@@ -137,7 +137,7 @@ export default function ContactFooter() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 fade-up">
             {/* Column 1 — Brand */}
             <div>
-              <img src={logoSvg} alt="AutoMax Auto Group" className="w-[180px] mb-5" />
+              <img src={logoSvg} alt="AutoMax Auto Group" className="w-[240px] mb-5" />
               <p className="text-text-dim text-sm leading-relaxed font-body">
                 Oklahoma&rsquo;s trusted dealer for over 28 years. Quality
                 pre-owned vehicles with flexible financing options.

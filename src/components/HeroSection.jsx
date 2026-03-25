@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useFadeUp } from '../hooks/useFadeUp'
-const logoSvg = '/images/automax-logo.png'
+const logoSvg = '/images/auto-max-logo-3.png'
 
 const navLinks = [
   { label: 'Inventory', href: '#inventory' },
@@ -49,7 +49,7 @@ export default function HeroSection() {
       >
         <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4">
           <a href="#" className="shrink-0">
-            <img src={logoSvg} alt="AutoMax Auto Group" className="w-[200px]" />
+            <img src={logoSvg} alt="AutoMax Auto Group" className="w-[280px]" />
           </a>
 
           <div className="hidden md:flex items-center gap-8">
@@ -92,7 +92,7 @@ export default function HeroSection() {
       {mobileOpen && (
         <div className="fixed inset-0 z-[60] bg-bg/98 backdrop-blur-lg flex flex-col">
           <div className="flex items-center justify-between px-6 py-4">
-            <img src={logoSvg} alt="AutoMax Auto Group" className="w-[200px]" />
+            <img src={logoSvg} alt="AutoMax Auto Group" className="w-[280px]" />
             <button onClick={() => setMobileOpen(false)} className="text-text p-2" aria-label="Close menu">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-7 w-7">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
