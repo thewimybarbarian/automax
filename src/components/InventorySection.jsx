@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useFadeUp } from '../hooks/useFadeUp'
+import VehicleDetailModal from './VehicleDetailModal'
 
 const vehicles = [
   { id: 1, year: 2023, make: 'Dodge', model: 'Charger R/T', price: 32995, miles: 18400, type: 'Sedan', mpg: 25, color: 'White', engine: 'V8', transmission: 'Automatic', drivetrain: 'RWD', img: 'https://images.pexels.com/photos/3874337/pexels-photo-3874337.jpeg?auto=compress&cs=tinysrgb&w=600' },
@@ -205,6 +206,7 @@ export default function InventorySection() {
   const [searchQuery, setSearchQuery] = useState('')
   const [showSidebar, setShowSidebar] = useState(false)
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false)
+  const [selectedVehicle, setSelectedVehicle] = useState(null)
   const sectionRef = useFadeUp()
   const inventoryRef = useRef(null)
 
@@ -376,7 +378,10 @@ export default function InventorySection() {
                         </span>
                       </div>
 
-                      <button className="w-full border-2 border-amber/70 text-amber skew-x-[-4deg] py-3 text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:bg-amber hover:text-bg hover:shadow-[0_0_20px_rgba(232,168,73,0.2)] cursor-pointer">
+                      <button
+                        onClick={() => setSelectedVehicle(vehicle)}
+                        className="w-full border-2 border-amber/70 text-amber skew-x-[-4deg] py-3 text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:bg-amber hover:text-bg hover:shadow-[0_0_20px_rgba(232,168,73,0.2)] cursor-pointer"
+                      >
                         <span className="skew-x-[4deg] inline-block">View Details</span>
                       </button>
                     </div>
@@ -400,6 +405,14 @@ export default function InventorySection() {
           </div>
         </div>
       </div>
+
+      {/* Vehicle Detail Modal */}
+      {selectedVehicle && (
+        <VehicleDetailModal
+          vehicle={selectedVehicle}
+          onClose={() => setSelectedVehicle(null)}
+        />
+      )}
     </section>
   )
 }
