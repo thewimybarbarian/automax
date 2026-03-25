@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const logoSvg = '/images/auto=max-one.png'
+const logoSvg = '/images/automax-one.png'
 
 const navLinks = [
   { label: 'Inventory', href: '#inventory' },

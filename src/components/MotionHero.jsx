@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import HeroParticles from './HeroParticles'
 import CustomSelect from './CustomSelect'
 
-const logoSvg = '/images/auto=max-one.png'
+const logoSvg = '/images/automax-one.png'
 
 const navLinks = [
   { label: 'Inventory', href: '#inventory' },
