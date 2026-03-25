@@ -13,6 +13,7 @@ import AboutUsPage from './components/AboutUsPage'
 import PageTransition from './components/PageTransition'
 import TradeInSection from './components/TradeInSection'
 import FeatureSearch from './components/FeatureSearch'
+import FloatingReviewPopup from './components/FloatingReviewPopup'
 
 function App() {
   const [page, setPage] = useState(() => {
@@ -38,6 +39,7 @@ function App() {
     <div className="min-h-screen bg-bg font-body text-text">
       <Navbar />
       <MobileCTABar />
+      <FloatingReviewPopup />
 
       <PageTransition pageKey={page}>
         {page === 'about' ? (

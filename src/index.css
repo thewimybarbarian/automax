@@ -91,6 +91,22 @@
   transform: translateY(0);
 }
 
+/* Hero shimmer animation */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Hero background image — show car on mobile, center on desktop */
+.hero-bg-img {
+  object-position: 65% center;
+}
+@media (min-width: 640px) {
+  .hero-bg-img {
+    object-position: center center;
+  }
+}
+
 /* Hide scrollbar for filmstrip */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;

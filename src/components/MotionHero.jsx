@@ -122,14 +122,15 @@ export default function MotionHero() {
       </AnimatePresence>
 
       {/* ── Hero ── */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-bg">
+      <section className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-bg">
         {/* Background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/hero.png)' }}
+        <img
+          src="/images/hero.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover hero-bg-img"
         />
-        {/* Dark overlay with gradient */}
-        <div className="absolute inset-0 bg-bg/50" />
+        {/* Dark overlay — lighter on mobile so car image is more visible */}
+        <div className="absolute inset-0 bg-bg/30 sm:bg-bg/50" />
 
         {/* Particle effect */}
         <HeroParticles />
@@ -154,9 +155,9 @@ export default function MotionHero() {
         <div className="absolute top-20 right-0 w-48 h-px bg-gradient-to-l from-amber/20 to-transparent skew-y-[-20deg]" />
         <div className="absolute bottom-40 left-0 w-64 h-px bg-gradient-to-r from-amber/15 to-transparent skew-y-[15deg]" />
 
-        <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center text-center px-6 pt-28 pb-16">
+        <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center text-center px-4 sm:px-6 pt-24 sm:pt-28 pb-10 sm:pb-16">
           {/* Glass content panel */}
-          <div className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] p-8 sm:p-12">
+          <div className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] p-5 sm:p-8 md:p-12">
             {/* Badge */}
             <motion.span
               className="mb-8 inline-block border-l-2 border-amber pl-4 font-body text-xs tracking-[0.3em] uppercase text-amber"
