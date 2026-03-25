@@ -1,15 +1,47 @@
 import { useState, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
 import { useFadeUp } from '../hooks/useFadeUp'
 import VehicleDetailModal from './VehicleDetailModal'
 
 const vehicles = [
-  { id: 1, year: 2023, make: 'Dodge', model: 'Charger R/T', price: 32995, miles: 18400, type: 'Sedan', mpg: 25, color: 'White', engine: 'V8', transmission: 'Automatic', drivetrain: 'RWD', img: 'https://images.pexels.com/photos/3874337/pexels-photo-3874337.jpeg?auto=compress&cs=tinysrgb&w=600' },
-  { id: 2, year: 2022, make: 'Toyota', model: 'Camry TRD', price: 27495, miles: 24100, type: 'Sedan', mpg: 32, color: 'Red', engine: 'V6', transmission: 'Automatic', drivetrain: 'FWD', img: 'https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=600' },
-  { id: 3, year: 2023, make: 'Chevrolet', model: 'Tahoe LT', price: 48995, miles: 21300, type: 'SUV', mpg: 21, color: 'Black', engine: 'V8', transmission: 'Automatic', drivetrain: '4WD', img: 'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=600' },
-  { id: 4, year: 2022, make: 'Ford', model: 'F-150 XLT', price: 38995, miles: 32800, type: 'Truck', mpg: 24, color: 'Blue', engine: 'V6 Turbo', transmission: 'Automatic', drivetrain: '4WD', img: 'https://images.pexels.com/photos/2920064/pexels-photo-2920064.jpeg?auto=compress&cs=tinysrgb&w=600' },
-  { id: 5, year: 2023, make: 'Hyundai', model: 'Tucson SEL', price: 28495, miles: 15200, type: 'SUV', mpg: 29, color: 'Silver', engine: 'I4', transmission: 'Automatic', drivetrain: 'AWD', img: 'https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&w=600' },
-  { id: 6, year: 2021, make: 'Kia', model: 'K5 GT-Line', price: 24995, miles: 29600, type: 'Sedan', mpg: 31, color: 'Gray', engine: 'I4 Turbo', transmission: 'Automatic', drivetrain: 'FWD', img: 'https://images.pexels.com/photos/3729464/pexels-photo-3729464.jpeg?auto=compress&cs=tinysrgb&w=600' },
+  { id: 1, year: 2023, make: 'Dodge', model: 'Charger R/T', price: 32995, miles: 18400, type: 'Sedan', mpg: 25, color: 'White', engine: 'V8', transmission: 'Automatic', drivetrain: 'RWD', badge: 'Just Listed', img: 'https://images.pexels.com/photos/3874337/pexels-photo-3874337.jpeg?auto=compress&cs=tinysrgb&w=600' },
+  { id: 2, year: 2022, make: 'Toyota', model: 'Camry TRD', price: 27495, miles: 24100, type: 'Sedan', mpg: 32, color: 'Red', engine: 'V6', transmission: 'Automatic', drivetrain: 'FWD', badge: null, img: 'https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=600' },
+  { id: 3, year: 2023, make: 'Chevrolet', model: 'Tahoe LT', price: 48995, miles: 21300, type: 'SUV', mpg: 21, color: 'Black', engine: 'V8', transmission: 'Automatic', drivetrain: '4WD', badge: 'Price Drop', img: 'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=600' },
+  { id: 4, year: 2022, make: 'Ford', model: 'F-150 XLT', price: 38995, miles: 32800, type: 'Truck', mpg: 24, color: 'Blue', engine: 'V6 Turbo', transmission: 'Automatic', drivetrain: '4WD', badge: 'Hot', img: 'https://images.pexels.com/photos/2920064/pexels-photo-2920064.jpeg?auto=compress&cs=tinysrgb&w=600' },
+  { id: 5, year: 2023, make: 'Hyundai', model: 'Tucson SEL', price: 28495, miles: 15200, type: 'SUV', mpg: 29, color: 'Silver', engine: 'I4', transmission: 'Automatic', drivetrain: 'AWD', badge: 'Just Listed', img: 'https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&w=600' },
+  { id: 6, year: 2021, make: 'Kia', model: 'K5 GT-Line', price: 24995, miles: 29600, type: 'Sedan', mpg: 31, color: 'Gray', engine: 'I4 Turbo', transmission: 'Automatic', drivetrain: 'FWD', badge: null, img: 'https://images.pexels.com/photos/3729464/pexels-photo-3729464.jpeg?auto=compress&cs=tinysrgb&w=600' },
 ]
+
+function BadgeIcon({ badge }) {
+  if (badge === 'Price Drop') {
+    return (
+      <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 5v14M5 12l7 7 7-7" />
+      </svg>
+    )
+  }
+  if (badge === 'Hot') {
+    return (
+      <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.13-5.54 3.5-6.9.4-.39 1.05-.15 1.12.4.16 1.27.63 2.56 1.58 3.5.16.16.44.05.44-.18 0-2.03.7-4.3 2.36-6.32.34-.41.96-.32 1.17.15C14.21 8.3 15 10.2 15 12c0 .69-.16 1.36-.44 1.97a.255.255 0 00.38.29c.67-.51 1.2-1.2 1.56-2.01.18-.41.7-.49 1 -.14C18.43 13.12 21 15.42 21 18c0 2.76-4.03 5-9 5z" />
+      </svg>
+    )
+  }
+  return null
+}
+
+function getBadgeStyles(badge) {
+  switch (badge) {
+    case 'Just Listed':
+      return 'bg-amber text-bg animate-pulse'
+    case 'Price Drop':
+      return 'bg-emerald-500 text-white'
+    case 'Hot':
+      return 'bg-red-500 text-white'
+    default:
+      return ''
+  }
+}
 
 const filterCategories = [
   { key: 'year', label: 'YEAR', options: ['2023', '2022', '2021', '2020', '2019'] },
@@ -96,7 +128,7 @@ function FilterSidebar({ filters, setFilters, searchQuery, setSearchQuery, activ
   }
 
   return (
-    <div className="bg-card border border-border border-t-2 border-t-amber/30 p-5 w-full">
+    <div className="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] border-t-2 border-t-amber/30 p-5 w-full">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-bold uppercase tracking-wider text-text">Filters</h3>
@@ -121,7 +153,7 @@ function FilterSidebar({ filters, setFilters, searchQuery, setSearchQuery, activ
           placeholder="Search..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full bg-bg border border-border text-text text-sm pl-10 pr-4 py-2.5 focus:outline-none focus:border-amber/50 transition-colors placeholder:text-text-dim/50"
+          className="w-full bg-white/[0.06] border border-white/[0.08] text-text text-sm pl-10 pr-4 py-2.5 focus:outline-none focus:border-amber/50 transition-colors placeholder:text-text-dim/50"
         />
       </div>
 
@@ -132,7 +164,7 @@ function FilterSidebar({ filters, setFilters, searchQuery, setSearchQuery, activ
           const activeInCategory = (filters[cat.key] || []).length
 
           return (
-            <div key={cat.key} className="border-t border-border">
+            <div key={cat.key} className="border-t border-white/[0.06]">
               <button
                 onClick={() => toggleSection(cat.key)}
                 className="w-full flex items-center justify-between py-3.5 cursor-pointer group"
@@ -166,7 +198,7 @@ function FilterSidebar({ filters, setFilters, searchQuery, setSearchQuery, activ
                           className={`w-4 h-4 border flex items-center justify-center transition-all ${
                             isActive
                               ? 'bg-amber border-amber'
-                              : 'border-border group-hover/opt:border-amber/50'
+                              : 'border-white/[0.08] group-hover/opt:border-amber/50'
                           }`}
                         >
                           {isActive && (
@@ -249,8 +281,11 @@ export default function InventorySection() {
   })
 
   return (
-    <section ref={sectionRef} id="inventory" className="bg-bg py-24 px-6 font-body">
-      <div className="max-w-7xl mx-auto">
+    <section ref={sectionRef} id="inventory" className="relative overflow-hidden bg-bg py-24 px-6 font-body">
+      {/* Car showroom background */}
+      <div className="absolute inset-0 bg-cover bg-center bg-fixed" style={{ backgroundImage: 'url(https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg?auto=compress&cs=tinysrgb&w=1920)' }} />
+      <div className="absolute inset-0 bg-bg/90" />
+      <div className="max-w-7xl mx-auto relative">
         {/* Section Header */}
         <div className="text-center mb-14 fade-up">
           <div className="flex items-center justify-center gap-3 mb-5">
@@ -270,7 +305,7 @@ export default function InventorySection() {
         <div className="lg:hidden flex justify-center mb-8 fade-up">
           <button
             onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-            className="flex items-center gap-2 bg-card border border-border px-6 py-3 text-sm font-semibold uppercase tracking-wider text-text hover:border-amber/30 transition-colors cursor-pointer"
+            className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.08] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-text hover:border-amber/30 transition-colors cursor-pointer"
           >
             <svg className="w-4 h-4 text-amber" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="4" y1="6" x2="20" y2="6" />
@@ -336,19 +371,32 @@ export default function InventorySection() {
                 {filtered.map((vehicle, index) => (
                   <div
                     key={vehicle.id}
-                    className="fade-up bg-card border border-border border-t-2 border-t-amber/30 overflow-hidden group hover:border-amber/30 hover:border-t-amber hover:-translate-y-1 transition-all duration-300"
+                    className="fade-up bg-white/[0.04] backdrop-blur-lg border border-white/[0.08] border-t-2 border-t-amber/30 overflow-hidden group hover:bg-white/[0.07] hover:border-amber/30 hover:border-t-amber hover:-translate-y-1 transition-all duration-300"
                     style={{ transitionDelay: `${index * 100}ms` }}
                   >
                     {/* Image */}
                     <div className="relative overflow-hidden bg-[#111]">
                       <VehicleImage vehicle={vehicle} />
-                      <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-card to-transparent pointer-events-none" />
+                      <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
                       <span className="absolute top-4 right-4 bg-amber text-bg font-bold text-sm px-3.5 py-1.5 shadow-lg">
                         ${vehicle.price.toLocaleString()}
                       </span>
-                      <span className="absolute top-4 left-4 bg-bg/80 backdrop-blur-sm text-text-dim text-xs font-medium px-3 py-1.5 border border-border">
+                      {/* Type badge — bottom-left of image */}
+                      <span className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md text-text-dim text-xs font-medium px-3 py-1.5 border border-white/[0.08]">
                         {vehicle.type}
                       </span>
+                      {/* Urgency badge — top-left */}
+                      {vehicle.badge && (
+                        <motion.span
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ type: 'spring', stiffness: 400, damping: 20, delay: 0.2 }}
+                          className={`absolute top-4 left-4 text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 flex items-center gap-1 ${getBadgeStyles(vehicle.badge)}`}
+                        >
+                          <BadgeIcon badge={vehicle.badge} />
+                          {vehicle.badge}
+                        </motion.span>
+                      )}
                     </div>
 
                     {/* Card Body */}

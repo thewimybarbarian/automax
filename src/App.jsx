@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
-import HeroSection from './components/HeroSection'
+import MotionHero from './components/MotionHero'
+import TrustStrip from './components/TrustStrip'
 import InventorySection from './components/InventorySection'
+import FinancingCalculator from './components/FinancingCalculator'
 import AboutSection from './components/AboutSection'
 import ContactFooter from './components/ContactFooter'
 import FloatingToolbar from './components/FloatingToolbar'
+import MobileCTABar from './components/MobileCTABar'
 import TestimonialMarquee from './components/TestimonialMarquee'
 import AboutUsPage from './components/AboutUsPage'
+import PageTransition from './components/PageTransition'
 
 function App() {
   const [page, setPage] = useState(() => {
@@ -28,32 +32,38 @@ function App() {
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
 
-  if (page === 'about') {
-    return (
-      <div className="min-h-screen bg-bg font-body text-text">
-        <Navbar />
-        <AboutUsPage />
-        <hr className="section-divider" />
-        <TestimonialMarquee />
-        <hr className="section-divider" />
-        <ContactFooter />
-      </div>
-    )
-  }
-
   return (
     <div className="min-h-screen bg-bg font-body text-text">
       <Navbar />
-      <FloatingToolbar />
-      <HeroSection />
-      <hr className="section-divider" />
-      <InventorySection />
-      <hr className="section-divider" />
-      <AboutSection />
-      <hr className="section-divider" />
-      <TestimonialMarquee />
-      <hr className="section-divider" />
-      <ContactFooter />
+      <MobileCTABar />
+
+      <PageTransition pageKey={page}>
+        {page === 'about' ? (
+          <>
+            <AboutUsPage />
+            <hr className="section-divider" />
+            <TestimonialMarquee />
+            <hr className="section-divider" />
+            <ContactFooter />
+          </>
+        ) : (
+          <>
+            <FloatingToolbar />
+            <MotionHero />
+            <TrustStrip />
+            <hr className="section-divider" />
+            <InventorySection />
+            <hr className="section-divider" />
+            <FinancingCalculator />
+            <hr className="section-divider" />
+            <AboutSection />
+            <hr className="section-divider" />
+            <TestimonialMarquee />
+            <hr className="section-divider" />
+            <ContactFooter />
+          </>
+        )}
+      </PageTransition>
     </div>
   )
 }
