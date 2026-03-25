@@ -3,11 +3,9 @@ import { useState, useEffect, useRef } from 'react'
 /* Simulates a key-fob unlock flash on the truck's headlights.
    Two quick flashes every 8-20 seconds, like someone clicking unlock.
 
-   Headlight positions are calculated from the original hero image (2560x1490).
-   The truck's left DRL is at ~(1140,620) and right DRL at ~(1340,620).
-   With object-cover + center center, these map to ~44%/53% horizontally
-   and ~42% vertically on desktop. On mobile the x-offset shifts due to
-   the 65% object-position. */
+   On desktop (object-position: center center), the truck's headlights
+   sit at roughly 86% from top, 55% (left DRL) and 61% (right DRL)
+   of the hero section. */
 
 export default function HeadlightFlicker() {
   const [flash, setFlash] = useState(false)
@@ -15,45 +13,39 @@ export default function HeadlightFlicker() {
 
   useEffect(() => {
     function doFlash() {
-      // Double flash pattern (like a real key fob unlock)
       timers.current.push(setTimeout(() => setFlash(true), 0))
       timers.current.push(setTimeout(() => setFlash(false), 130))
       timers.current.push(setTimeout(() => setFlash(true), 300))
       timers.current.push(setTimeout(() => setFlash(false), 430))
 
-      // Schedule next flash
       const next = 8000 + Math.random() * 12000
       timers.current.push(setTimeout(doFlash, next))
     }
 
-    // First flash after 4-6s
     timers.current.push(setTimeout(doFlash, 4000 + Math.random() * 2000))
     return () => timers.current.forEach(clearTimeout)
   }, [])
 
   const headlightStyle = (left) => ({
     left,
-    top: '52%',
-    width: '2.2%',
-    height: '4%',
+    top: '86%',
+    width: '2%',
+    height: '3%',
     opacity: flash ? 1 : 0,
     transition: flash ? 'opacity 0.03s' : 'opacity 0.2s',
   })
 
   return (
     <div className="absolute inset-0 pointer-events-none z-[2]">
-      {/* Left headlight */}
-      <div className="absolute" style={headlightStyle('44%')}>
-        {/* Core bright spot */}
+      {/* Left headlight (driver side DRL) */}
+      <div className="absolute" style={headlightStyle('55%')}>
         <div className="absolute inset-0 bg-white rounded-full blur-[2px]" />
-        {/* Warm glow */}
         <div className="absolute -inset-2 bg-amber-200/70 rounded-full blur-[6px]" />
-        {/* Wide soft glow */}
         <div className="absolute -inset-6 bg-amber-100/30 rounded-full blur-[16px]" />
       </div>
 
-      {/* Right headlight */}
-      <div className="absolute" style={headlightStyle('52.5%')}>
+      {/* Right headlight (passenger side DRL) */}
+      <div className="absolute" style={headlightStyle('61%')}>
         <div className="absolute inset-0 bg-white rounded-full blur-[2px]" />
         <div className="absolute -inset-2 bg-amber-200/70 rounded-full blur-[6px]" />
         <div className="absolute -inset-6 bg-amber-100/30 rounded-full blur-[16px]" />
@@ -63,10 +55,10 @@ export default function HeadlightFlicker() {
       <div
         className="absolute"
         style={{
-          left: '42%',
-          top: '56%',
-          width: '16%',
-          height: '10%',
+          left: '52%',
+          top: '89%',
+          width: '14%',
+          height: '8%',
           opacity: flash ? 0.5 : 0,
           transition: flash ? 'opacity 0.03s' : 'opacity 0.3s',
         }}
