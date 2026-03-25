@@ -14,8 +14,16 @@ export default function AboutSection() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative py-24 md:py-32 bg-bg overflow-hidden"
+      className="relative py-24 md:py-32 overflow-hidden"
     >
+      {/* Full-bleed car background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-fixed"
+        style={{ backgroundImage: 'url(https://images.pexels.com/photos/3786091/pexels-photo-3786091.jpeg?auto=compress&cs=tinysrgb&w=1920)' }}
+      />
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-bg/85" />
+
       {/* Subtle ambient glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber/[0.02] blur-3xl pointer-events-none" />
 
@@ -42,7 +50,7 @@ export default function AboutSection() {
           {stats.map((stat, i) => (
             <div
               key={stat.label}
-              className="fade-up bg-card/50 backdrop-blur border border-border border-t-2 border-t-amber/30 p-8 text-center hover:border-amber transition-colors duration-300"
+              className="fade-up bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] border-t-2 border-t-amber/30 p-8 text-center hover:bg-white/[0.08] hover:border-amber/30 transition-colors duration-300"
               style={{ transitionDelay: `${i * 100}ms` }}
             >
               <div className="text-4xl font-bold text-amber font-heading">
@@ -57,7 +65,7 @@ export default function AboutSection() {
 
         {/* Financing CTA Banner */}
         <div className="fade-up" style={{ transitionDelay: '200ms' }}>
-          <div className="bg-gradient-to-r from-amber/20 via-amber/5 to-amber/20 border border-amber/30 p-10 text-center">
+          <div className="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] bg-gradient-to-r from-amber/20 via-transparent to-amber/20 p-10 text-center">
             <h3 className="text-2xl md:text-3xl font-bold text-text mb-4 font-body">
               Flexible Financing for{' '}
               <span className="font-heading italic text-amber">Everyone</span>
