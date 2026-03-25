@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import HeroParticles from './HeroParticles'
 import CustomSelect from './CustomSelect'
 
-const logoSvg = '/images/automax-one.png'
+const logoSvg = '/images/auto-max-logo-city.png'
 
 const navLinks = [
   { label: 'Inventory', href: '#inventory' },
@@ -51,7 +51,7 @@ export default function MotionHero() {
       >
         <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4">
           <a href="#" className="shrink-0">
-            <img src={logoSvg} alt="AutoMax Auto Group" className="h-24 w-auto" />
+            <img src={logoSvg} alt="AutoMax Auto Group" className="h-32 w-auto" />
           </a>
 
           <div className="hidden md:flex items-center gap-8">
@@ -101,7 +101,7 @@ export default function MotionHero() {
             transition={{ duration: 0.3 }}
           >
             <div className="flex items-center justify-between px-6 py-4">
-              <img src={logoSvg} alt="AutoMax Auto Group" className="h-24 w-auto" />
+              <img src={logoSvg} alt="AutoMax Auto Group" className="h-32 w-auto" />
               <button onClick={() => setMobileOpen(false)} className="text-text p-2" aria-label="Close menu">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-7 w-7">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
