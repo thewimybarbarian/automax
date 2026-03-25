@@ -31,11 +31,11 @@ export default function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
             ? 'bg-bg/95 border-b border-border backdrop-blur-md'
-            : 'bg-transparent border-b border-transparent'
+            : 'bg-black/30 backdrop-blur-sm border-b border-white/5'
         }`}
       >
         <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4">
-          <a href="#" className="shrink-0 bg-black/30 backdrop-blur-sm rounded-lg px-3 py-2">
+          <a href="#" className="shrink-0">
             <img src={logoSvg} alt="AutoMax Auto Group" className="h-14 sm:h-20 lg:h-24 w-auto" />
           </a>
 
