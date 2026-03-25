@@ -3,6 +3,7 @@ import InventorySection from './components/InventorySection'
 import AboutSection from './components/AboutSection'
 import ContactFooter from './components/ContactFooter'
 import FloatingToolbar from './components/FloatingToolbar'
+import TestimonialMarquee from './components/TestimonialMarquee'
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
       <InventorySection />
       <hr className="section-divider" />
       <AboutSection />
+      <hr className="section-divider" />
+      <TestimonialMarquee />
       <hr className="section-divider" />
       <ContactFooter />
     </div>
