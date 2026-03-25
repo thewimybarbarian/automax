@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import HeroParticles from './HeroParticles'
+import HeroBirds from './HeroBirds'
 import CustomSelect from './CustomSelect'
 
 const makeOptions = ['Any Make', 'Chevrolet', 'Dodge', 'Ford', 'GMC', 'Honda', 'Hyundai', 'Jeep', 'Kia', 'Nissan', 'Ram', 'Toyota']
@@ -23,6 +24,9 @@ export default function MotionHero() {
 
         {/* Particle effect */}
         <HeroParticles />
+
+        {/* Subtle flying birds */}
+        <HeroBirds />
 
         {/* Animated shimmer */}
         <div
