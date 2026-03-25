@@ -28,7 +28,7 @@ export default function HeadlightFlicker() {
 
   const headlightStyle = (left) => ({
     left,
-    top: '86%',
+    top: '58%',
     width: '2%',
     height: '3%',
     opacity: flash ? 1 : 0,
@@ -38,14 +38,14 @@ export default function HeadlightFlicker() {
   return (
     <div className="absolute inset-0 pointer-events-none z-[2]">
       {/* Left headlight (driver side DRL) */}
-      <div className="absolute" style={headlightStyle('55%')}>
+      <div className="absolute" style={headlightStyle('56%')}>
         <div className="absolute inset-0 bg-white rounded-full blur-[2px]" />
         <div className="absolute -inset-2 bg-amber-200/70 rounded-full blur-[6px]" />
         <div className="absolute -inset-6 bg-amber-100/30 rounded-full blur-[16px]" />
       </div>
 
       {/* Right headlight (passenger side DRL) */}
-      <div className="absolute" style={headlightStyle('61%')}>
+      <div className="absolute" style={headlightStyle('63%')}>
         <div className="absolute inset-0 bg-white rounded-full blur-[2px]" />
         <div className="absolute -inset-2 bg-amber-200/70 rounded-full blur-[6px]" />
         <div className="absolute -inset-6 bg-amber-100/30 rounded-full blur-[16px]" />
@@ -55,8 +55,8 @@ export default function HeadlightFlicker() {
       <div
         className="absolute"
         style={{
-          left: '52%',
-          top: '89%',
+          left: '54%',
+          top: '62%',
           width: '14%',
           height: '8%',
           opacity: flash ? 0.5 : 0,
