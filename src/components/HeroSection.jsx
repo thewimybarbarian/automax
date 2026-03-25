@@ -5,7 +5,7 @@ const logoSvg = '/images/auto-max-logo-3.png'
 const navLinks = [
   { label: 'Inventory', href: '#inventory' },
   { label: 'Financing', href: '#financing' },
-  { label: 'About', href: '#about' },
+  { label: 'About', href: '#about-us' },
   { label: 'Service', href: '#service' },
   { label: 'Contact', href: '#contact' },
 ]

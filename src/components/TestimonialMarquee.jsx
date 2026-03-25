@@ -1,63 +1,71 @@
-const reviews = [
-  { name: 'Maria G.', text: 'Anthony and James made my car purchase effortless. No pressure, just great options that fit my budget. I drove away same day!', stars: 5, source: 'Google' },
-  { name: 'Derek T.', text: 'We went in with $200 and a prayer and walked out with a 2021 Kia Forte. These guys work miracles with financing.', stars: 5, source: 'Google' },
-  { name: 'Sandra W.', text: "Second vehicle I've purchased from AutoMax. The sales staff are polite, informative, and courteous. Best experience every time.", stars: 5, source: 'Google' },
-  { name: 'James R.', text: 'Tyson was an excellent salesman — super polite, gave me a great deal, and got it done quick. Highly recommend!', stars: 5, source: 'Google' },
-  { name: 'Zachary G.', text: 'Super friendly team. Made the process fast and professional. Walked out with exactly what I wanted. Will be back!', stars: 5, source: 'DealerRater' },
-  { name: 'Michael B.', text: 'Third car I\'ve bought from AutoMax. The customer service is excellent every single time. They treat you like family.', stars: 5, source: 'Google' },
-  { name: 'Ashley K.', text: 'Lillian helped me find the perfect SUV and Brian in finance got me an incredible rate through a credit union. So grateful!', stars: 5, source: 'Cars.com' },
-  { name: 'Robert M.', text: 'Struggled for months to find financing elsewhere. AutoMax listened to what I needed without pressure and made it happen.', stars: 5, source: 'Google' },
-  { name: 'Patricia L.', text: 'The service department is superb and clean. They never pressure you for unnecessary work. Honest and reliable.', stars: 5, source: 'SureCritic' },
-  { name: 'Chris D.', text: 'Best car buying experience in OKC. No games, no gimmicks. Fair prices and they actually care about getting you approved.', stars: 5, source: 'Google' },
-  { name: 'Tiffany H.', text: 'Aaron Cotton went above and beyond for us. He found the exact truck we wanted and the payments were even lower than expected!', stars: 5, source: 'DealerRater' },
-  { name: 'Marcus J.', text: 'Drove from Tulsa just to buy here. Worth every mile. The staff is amazing and the vehicles are well-priced compared to other dealers.', stars: 5, source: 'Google' },
-  { name: 'Jennifer S.', text: 'Ryan Williams took his time showing us every option. No rush, no pressure. Left feeling confident about our purchase.', stars: 5, source: 'Cars.com' },
-  { name: 'David W.', text: 'John Lindsey is the real deal. Straight up honest, funny, and got me into a car I love. Already sent two friends his way.', stars: 5, source: 'Google' },
-  { name: 'Kayla R.', text: 'Coming from a single mom — these guys gave me hope when nobody else would. Flexible financing that actually works. Thank you AutoMax!', stars: 5, source: 'Google' },
-  { name: 'Brandon F.', text: 'Management takes extra time to understand your budget and lifestyle. They don\'t just sell cars, they build relationships.', stars: 5, source: 'DealerRater' },
+const testimonials = [
+  { name: 'Michelle', location: 'Del City', text: 'James was friendly, funny and incredibly knowledgeable. Anthony took extra time to understand my needs. Car buying was smooth and painless!', stars: 5 },
+  { name: 'Ana H.', location: 'OKC', text: 'We went in with $200, a trade-in, and a prayer — walked out with a 2021 Kia Forte. These guys work miracles with financing!', stars: 5 },
+  { name: 'Joline T.', location: 'Norman', text: 'No one was pushing or pressuring us. They listened to my needs and the Palisade was better priced than every other dealer we visited.', stars: 5 },
+  { name: 'Julia K.', location: 'OKC', text: 'They helped me find a car that fit all my needs without pressuring me. More considerate than any other place I\'ve been.', stars: 5 },
+  { name: 'Jessica S.', location: 'OKC', text: 'Michael was absolutely amazing! Customer service I\'ve never experienced anywhere else. He went above and beyond to make sure I was happy.', stars: 5 },
+  { name: 'Holly', location: 'Shawnee', text: 'Angel went above and beyond helping my son buy a vehicle while I was out of state. Nothing but professional and extremely helpful.', stars: 5 },
+  { name: 'John M.', location: 'OKC', text: 'John and Ryan helped me get out of a negative equity situation. John even put gas in my car out of his own pocket! These guys are amazing.', stars: 5 },
+  { name: 'Kendra', location: 'OKC', text: 'Michael greeted me warmly and was very knowledgeable and patient. I look forward to coming back — will definitely ask for Michael again.', stars: 5 },
+  { name: 'Amari', location: 'Del City', text: 'Justin was very professional, helpful, and easy to work with. Found exactly what I was looking for on their website. Great customer service!', stars: 5 },
+  { name: 'Dillon', location: 'OKC', text: 'Tyson was super polite, gave me a great deal, and got it done quick. Showed me great options until I found exactly what I needed.', stars: 5 },
+  { name: 'Sara G.', location: 'OKC', text: 'John Lindsey is my family\'s car guy! I was so pleased I went back a year later for a second purchase. Helpful with a great attitude.', stars: 5 },
+  { name: 'Fran', location: 'Del City', text: 'They know you by name even after purchasing 3 cars! The entire team is trustworthy with no haggling. Always clean and welcoming.', stars: 5 },
+  { name: 'Gaylan', location: 'Del City', text: 'Justin acted in such a professional manner from the time I stepped on the lot until I drove off. Great experience overall.', stars: 5 },
+  { name: 'Mary', location: 'OKC', text: 'Michael was honest and genuinely listened to my needs. Found the exact Sonata with the price, rate, and payments I needed.', stars: 5 },
+  { name: 'Sam B.', location: 'OKC', text: 'Aaron Cotton helped make everything very affordable. Got exactly what I wanted — can\'t find a better car dealer in all of Oklahoma.', stars: 5 },
+  { name: 'James', location: 'OKC', text: 'Don\'t have the best credit and these guys worked hard to make a deal I was happy with. Great experience buying an awesome car.', stars: 5 },
+  { name: 'Theresa', location: 'OKC', text: 'Second vehicle from AutoMax. Sales staff were polite, informative, and courteous. One of the best car buying experiences ever.', stars: 5 },
+  { name: 'Michael S.', location: 'Midwest City', text: 'They asked me multiple times if I wanted to proceed instead of pressuring me. Great down-to-earth buying experience. Ask for Evan!', stars: 5 },
 ]
 
-const row1 = reviews.slice(0, 8)
-const row2 = reviews.slice(8, 16)
+const row1 = testimonials.slice(0, 9)
+const row2 = testimonials.slice(9, 18)
 
-function StarRow({ count }) {
+function StarRating({ count }) {
   return (
-    <div className="flex gap-0.5">
+    <span className="text-amber text-sm tracking-wide">
       {Array.from({ length: count }, (_, i) => (
-        <svg key={i} className="w-3.5 h-3.5 text-amber" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
+        <span key={i}>&#9733;</span>
       ))}
-    </div>
+    </span>
   )
 }
 
-function ReviewCard({ review }) {
+function GoogleIcon() {
   return (
-    <div className="flex-shrink-0 w-[380px] bg-card border border-border border-t-2 border-t-amber/40 p-6 mx-3 group hover:border-amber/60 transition-all duration-300 relative overflow-hidden">
-      {/* Glow effect on hover */}
+    <span className="inline-flex items-center justify-center w-5 h-5 bg-white/10 border border-white/20 text-[10px] font-bold text-white leading-none">
+      G
+    </span>
+  )
+}
+
+function TestimonialCard({ testimonial }) {
+  return (
+    <div className="flex-shrink-0 min-w-[350px] max-w-[400px] bg-card border border-border border-t-2 border-t-amber/30 p-6 mx-3 group hover:-translate-y-1 hover:border-t-amber transition-all duration-300 relative overflow-hidden">
+      {/* Hover glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-amber/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
       <div className="relative z-10">
-        {/* Stars + Source */}
+        {/* Stars + Google icon */}
         <div className="flex items-center justify-between mb-3">
-          <StarRow count={review.stars} />
-          <span className="text-[10px] uppercase tracking-wider text-text-dim/50 font-semibold">{review.source}</span>
+          <StarRating count={testimonial.stars} />
+          <GoogleIcon />
         </div>
 
         {/* Quote */}
         <p className="text-text text-sm leading-relaxed mb-4 line-clamp-3">
-          &ldquo;{review.text}&rdquo;
+          &ldquo;{testimonial.text}&rdquo;
         </p>
 
-        {/* Name */}
+        {/* Customer info */}
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-amber/20 border border-amber/30 flex items-center justify-center text-amber font-bold text-xs">
-            {review.name.charAt(0)}
+          <div className="w-8 h-8 bg-amber/15 border border-amber/25 flex items-center justify-center text-amber font-bold text-xs font-heading">
+            {testimonial.name.charAt(0)}
           </div>
           <div>
-            <p className="text-amber font-semibold text-sm">{review.name}</p>
-            <p className="text-text-dim text-[11px]">Verified Customer</p>
+            <p className="text-amber font-semibold text-sm">{testimonial.name}</p>
+            <p className="text-text-dim text-xs">{testimonial.location}, OK</p>
           </div>
         </div>
       </div>
@@ -65,26 +73,27 @@ function ReviewCard({ review }) {
   )
 }
 
-function MarqueeRow({ reviews: rowReviews, direction = 'left', speed = 40 }) {
-  // Duplicate for seamless loop
-  const doubled = [...rowReviews, ...rowReviews, ...rowReviews]
-  const animName = direction === 'left' ? 'marqueeLeft' : 'marqueeRight'
+function MarqueeRow({ testimonials: rowData, direction = 'left', speed = 40 }) {
+  const doubled = [...rowData, ...rowData]
+  const animName = direction === 'left' ? 'marqueeScrollLeft' : 'marqueeScrollRight'
 
   return (
-    <div className="overflow-hidden relative">
-      {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none" />
-
+    <div
+      className="overflow-hidden relative group/row"
+      style={{
+        maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+      }}
+    >
       <div
-        className="flex"
+        className="flex group-hover/row:[animation-play-state:paused]"
         style={{
           animation: `${animName} ${speed}s linear infinite`,
           width: 'max-content',
         }}
       >
-        {doubled.map((review, i) => (
-          <ReviewCard key={`${review.name}-${i}`} review={review} />
+        {doubled.map((t, i) => (
+          <TestimonialCard key={`${t.name}-${i}`} testimonial={t} />
         ))}
       </div>
     </div>
@@ -93,76 +102,72 @@ function MarqueeRow({ reviews: rowReviews, direction = 'left', speed = 40 }) {
 
 export default function TestimonialMarquee() {
   return (
-    <section className="relative py-20 md:py-28 bg-bg overflow-hidden">
-      {/* Big ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[600px] bg-amber/[0.03] blur-[120px] pointer-events-none" />
+    <section className="relative py-20 md:py-28 bg-[#0c0c0c] overflow-hidden">
+      {/* Amber glow at top */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[2px] bg-gradient-to-r from-transparent via-amber/60 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[120px] bg-amber/[0.04] blur-[80px] pointer-events-none" />
+
+      {/* Decorative giant quotation mark */}
+      <div className="absolute top-8 left-1/2 -translate-x-1/2 text-[280px] md:text-[400px] font-heading text-amber/[0.07] leading-none pointer-events-none select-none" aria-hidden="true">
+        &ldquo;
+      </div>
+
+      {/* Ambient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[500px] bg-amber/[0.02] blur-[100px] pointer-events-none" />
 
       {/* Header */}
-      <div className="relative text-center mb-14 px-6">
+      <div className="relative text-center mb-16 px-6 z-10">
+        {/* Label */}
         <div className="flex items-center justify-center gap-3 mb-5">
           <span className="h-px w-12 bg-amber/50" />
-          <span className="text-amber uppercase tracking-[0.25em] text-xs font-semibold">
-            Real Reviews
+          <span className="text-amber uppercase tracking-[0.3em] text-xs font-semibold font-body">
+            What Our Customers Say
           </span>
           <span className="h-px w-12 bg-amber/50" />
         </div>
 
-        <h2 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-text mb-4">
-          <span className="text-amber font-heading italic">10,000+</span> Happy Customers
+        {/* Heading */}
+        <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold text-text mb-6">
+          Real Reviews from <em className="text-amber italic">Real People</em>
         </h2>
 
-        <p className="text-text-dim text-lg max-w-xl mx-auto">
-          Don&rsquo;t just take our word for it — hear from the people who drive home happy.
-        </p>
-
-        {/* Rating summary */}
-        <div className="flex items-center justify-center gap-6 mt-8">
-          <div className="flex items-center gap-2">
-            <span className="text-3xl font-bold text-amber font-heading">4.5</span>
-            <div>
-              <div className="flex gap-0.5">
-                {[1,2,3,4].map(i => (
-                  <svg key={i} className="w-4 h-4 text-amber" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-                <svg className="w-4 h-4 text-amber/40" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              </div>
-              <p className="text-text-dim text-[10px] uppercase tracking-wider mt-0.5">Average Rating</p>
-            </div>
+        {/* Giant rating display */}
+        <div className="flex flex-col items-center gap-3 mt-8">
+          <span className="text-7xl md:text-8xl font-heading font-black text-amber leading-none">
+            4.5
+          </span>
+          <div className="flex gap-1 text-2xl">
+            {[1, 2, 3, 4].map((i) => (
+              <span key={i} className="text-amber">&#9733;</span>
+            ))}
+            <span className="text-amber/40">&#9733;</span>
           </div>
-          <span className="w-px h-8 bg-border" />
-          <div className="text-center">
-            <span className="text-2xl font-bold text-text">86+</span>
-            <p className="text-text-dim text-[10px] uppercase tracking-wider">Verified Reviews</p>
-          </div>
-          <span className="w-px h-8 bg-border" />
-          <div className="text-center">
-            <span className="text-2xl font-bold text-text">70%</span>
-            <p className="text-text-dim text-[10px] uppercase tracking-wider">5-Star Ratings</p>
-          </div>
+          <p className="text-text-dim text-sm tracking-wide mt-1">
+            Based on <span className="text-text font-semibold">500+</span> Google Reviews
+          </p>
         </div>
       </div>
 
       {/* Marquee Row 1 — scrolls left */}
       <div className="mb-6">
-        <MarqueeRow reviews={row1} direction="left" speed={45} />
+        <MarqueeRow testimonials={row1} direction="left" speed={40} />
       </div>
 
       {/* Marquee Row 2 — scrolls right */}
       <div>
-        <MarqueeRow reviews={row2} direction="right" speed={50} />
+        <MarqueeRow testimonials={row2} direction="right" speed={40} />
       </div>
 
+      {/* Amber glow at bottom */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[2px] bg-gradient-to-r from-transparent via-amber/30 to-transparent" />
+
       <style>{`
-        @keyframes marqueeLeft {
+        @keyframes marqueeScrollLeft {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-33.333%); }
+          100% { transform: translateX(-50%); }
         }
-        @keyframes marqueeRight {
-          0% { transform: translateX(-33.333%); }
+        @keyframes marqueeScrollRight {
+          0% { transform: translateX(-50%); }
           100% { transform: translateX(0); }
         }
         .line-clamp-3 {
