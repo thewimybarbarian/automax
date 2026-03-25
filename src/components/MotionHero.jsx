@@ -157,8 +157,7 @@ export default function MotionHero() {
         <div className="absolute bottom-40 left-0 w-64 h-px bg-gradient-to-r from-amber/15 to-transparent skew-y-[15deg]" />
 
         <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center text-center px-4 sm:px-6 pt-24 sm:pt-28 pb-10 sm:pb-16">
-          {/* Glass content panel */}
-          <div className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] p-5 sm:p-8 md:p-12">
+          <div>
             {/* Badge */}
             <motion.span
               className="mb-8 inline-block border-l-2 border-amber pl-4 font-body text-xs tracking-[0.3em] uppercase text-amber"
