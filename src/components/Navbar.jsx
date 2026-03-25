@@ -35,7 +35,7 @@ export default function Navbar() {
         }`}
       >
         <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4">
-          <a href="#" className="shrink-0">
+          <a href="#" className="shrink-0 bg-black/30 backdrop-blur-sm rounded-lg px-3 py-2">
             <img src={logoSvg} alt="AutoMax Auto Group" className="h-14 sm:h-20 lg:h-24 w-auto" />
           </a>
 

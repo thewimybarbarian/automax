@@ -4,12 +4,12 @@ import { useFadeUp } from '../hooks/useFadeUp'
 import VehicleDetailModal from './VehicleDetailModal'
 
 const vehicles = [
-  { id: 1, year: 2023, make: 'Dodge', model: 'Charger R/T', price: 32995, miles: 18400, type: 'Sedan', mpg: 25, color: 'White', engine: 'V8', transmission: 'Automatic', drivetrain: 'RWD', badge: 'Just Listed', img: 'https://images.pexels.com/photos/3874337/pexels-photo-3874337.jpeg?auto=compress&cs=tinysrgb&w=600' },
-  { id: 2, year: 2022, make: 'Toyota', model: 'Camry TRD', price: 27495, miles: 24100, type: 'Sedan', mpg: 32, color: 'Red', engine: 'V6', transmission: 'Automatic', drivetrain: 'FWD', badge: null, img: 'https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=600' },
-  { id: 3, year: 2023, make: 'Chevrolet', model: 'Tahoe LT', price: 48995, miles: 21300, type: 'SUV', mpg: 21, color: 'Black', engine: 'V8', transmission: 'Automatic', drivetrain: '4WD', badge: 'Price Drop', img: 'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=600' },
-  { id: 4, year: 2022, make: 'Ford', model: 'F-150 XLT', price: 38995, miles: 32800, type: 'Truck', mpg: 24, color: 'Blue', engine: 'V6 Turbo', transmission: 'Automatic', drivetrain: '4WD', badge: 'Hot', img: 'https://images.pexels.com/photos/2920064/pexels-photo-2920064.jpeg?auto=compress&cs=tinysrgb&w=600' },
-  { id: 5, year: 2023, make: 'Hyundai', model: 'Tucson SEL', price: 28495, miles: 15200, type: 'SUV', mpg: 29, color: 'Silver', engine: 'I4', transmission: 'Automatic', drivetrain: 'AWD', badge: 'Just Listed', img: 'https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&w=600' },
-  { id: 6, year: 2021, make: 'Kia', model: 'K5 GT-Line', price: 24995, miles: 29600, type: 'Sedan', mpg: 31, color: 'Gray', engine: 'I4 Turbo', transmission: 'Automatic', drivetrain: 'FWD', badge: null, img: 'https://images.pexels.com/photos/3729464/pexels-photo-3729464.jpeg?auto=compress&cs=tinysrgb&w=600' },
+  { id: 1, year: 2022, make: 'Chevrolet', model: 'Equinox LT', price: 24995, miles: 28400, type: 'SUV', mpg: 31, color: 'Silver', engine: 'I4 Turbo', transmission: 'Automatic', drivetrain: 'FWD', badge: 'Just Listed', img: '/images/Chevrolet Equinox.webp' },
+  { id: 2, year: 2023, make: 'Chevrolet', model: 'Traverse LT', price: 34995, miles: 18200, type: 'SUV', mpg: 25, color: 'White', engine: 'V6', transmission: 'Automatic', drivetrain: 'AWD', badge: null, img: '/images/Chevrolet Traverse.webp' },
+  { id: 3, year: 2022, make: 'Buick', model: 'Encore GX', price: 26495, miles: 21300, type: 'SUV', mpg: 30, color: 'Gray', engine: 'I4 Turbo', transmission: 'Automatic', drivetrain: 'AWD', badge: 'Price Drop', img: '/images/Buick Encore.webp' },
+  { id: 4, year: 2023, make: 'Jeep', model: 'Cherokee Latitude', price: 29995, miles: 15800, type: 'SUV', mpg: 27, color: 'Black', engine: 'V6', transmission: 'Automatic', drivetrain: '4WD', badge: 'Hot', img: '/images/Jeep Cherokee.webp' },
+  { id: 5, year: 2023, make: 'Hyundai', model: 'Kona SEL', price: 23495, miles: 12400, type: 'SUV', mpg: 33, color: 'Blue', engine: 'I4', transmission: 'Automatic', drivetrain: 'AWD', badge: 'Just Listed', img: '/images/Hyundai Kona.webp' },
+  { id: 6, year: 2022, make: 'Jeep', model: 'Renegade Sport', price: 22995, miles: 26100, type: 'SUV', mpg: 29, color: 'Red', engine: 'I4 Turbo', transmission: 'Automatic', drivetrain: '4WD', badge: null, img: '/images/Jeep Renegade.webp' },
 ]
 
 function BadgeIcon({ badge }) {
