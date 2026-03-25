@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8a849"/>
+      <stop offset="50%" style="stop-color:#e07030"/>
+      <stop offset="100%" style="stop-color:#c44020"/>
+    </linearGradient>
+  </defs>
+  <text x="200" y="58" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="56" fill="url(#logoGrad)" letter-spacing="6">AUTOMAX</text>
+</svg>

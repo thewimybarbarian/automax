@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.prompthealth.com)",
+      "Bash(dir:*)",
+      "Bash(npm run build:*)",
+      "Bash(timeout:*)",
+      "Bash(npx next dev:*)",
+      "Bash(taskkill:*)",
+      "Bash(Start-Sleep -Seconds 2)",
+      "Bash(powershell -Command \"Stop-Process -Name node -Force -ErrorAction SilentlyContinue; Start-Sleep -Seconds 2; Write-Output ''done''\")",
+      "Bash(npm install:*)",
+      "Bash(npm view:*)",
+      "Bash(curl:*)",
+      "Bash(for f in components/sections/Footer.tsx components/sections/Header.tsx components/sections/Process.tsx components/sections/Services.tsx components/sections/Testimonials.tsx components/sections/About.tsx components/sections/Contact.tsx components/sections/CTA.tsx components/sections/Hero.tsx app/actions/submit-lead.ts app/page.tsx app/layout.tsx)",
+      "Bash(do sed -i \"s/\\\\xe2\\\\x80\\\\x99/''/g; s/\\\\xe2\\\\x80\\\\x98/''/g; s/\\\\xe2\\\\x80\\\\x9c/\"\"/g; s/\\\\xe2\\\\x80\\\\x9d/\"\"/g; s/\\\\xe2\\\\x80\\\\x94/--/g\" \"$f\")",
+      "Bash(echo:*)",
+      "Bash(done)",
+      "Bash(node -e:*)",
+      "Bash(node:*)"
+    ]
+  }
+}
