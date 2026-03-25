@@ -120,12 +120,7 @@ export default function HeroSection() {
           style={{ backgroundImage: 'url(/images/hero.png)' }}
         />
         {/* Dark overlay with gradient */}
-        <div className="absolute inset-0 bg-bg/50" />
-        {/* Animated shimmer */}
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-amber/5 to-transparent pointer-events-none"
-          style={{ animation: 'shimmer 8s ease-in-out infinite' }}
-        />
+        <div className="absolute inset-0 bg-bg/75" />
         {/* Bottom gradient fade to solid bg */}
         <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-bg to-transparent" />
         {/* Amber accent line across top */}
@@ -142,69 +137,66 @@ export default function HeroSection() {
         <div className="absolute bottom-40 left-0 w-64 h-px bg-gradient-to-r from-amber/15 to-transparent skew-y-[15deg]" />
 
         <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center text-center px-6 pt-28 pb-16">
-          {/* Glass content panel */}
-          <div className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] p-8 sm:p-12">
-            {/* Badge */}
-            <span className="fade-up mb-8 inline-block border-l-2 border-amber pl-4 font-body text-xs tracking-[0.3em] uppercase text-amber">
-              Serving Oklahoma for 28+ Years
-            </span>
+          {/* Badge */}
+          <span className="fade-up mb-8 inline-block border-l-2 border-amber pl-4 font-body text-xs tracking-[0.3em] uppercase text-amber">
+            Serving Oklahoma for 28+ Years
+          </span>
 
-            {/* Heading */}
-            <h1 className="fade-up font-body text-5xl font-extrabold leading-[1.05] text-text sm:text-6xl md:text-7xl lg:text-8xl tracking-tight">
-              The Deals Are{' '}
-              <span className="font-heading italic text-amber">Automatic</span>
-              <br className="hidden sm:block" />
-              <span className="text-text"> at AutoMax.</span>
-            </h1>
+          {/* Heading */}
+          <h1 className="fade-up font-body text-5xl font-extrabold leading-[1.05] text-text sm:text-6xl md:text-7xl lg:text-8xl tracking-tight">
+            The Deals Are{' '}
+            <span className="font-heading italic text-amber">Automatic</span>
+            <br className="hidden sm:block" />
+            <span className="text-text"> at AutoMax.</span>
+          </h1>
 
-            {/* Subtitle */}
-            <p className="fade-up mt-8 max-w-2xl font-body text-lg leading-relaxed text-text-dim md:text-xl mx-auto">
-              Flexible financing for every credit situation. From excellent credit
-              to rebuilding&nbsp;&mdash; we help Oklahoma drivers get behind the wheel.
-            </p>
+          {/* Subtitle */}
+          <p className="fade-up mt-8 max-w-2xl font-body text-lg leading-relaxed text-text-dim md:text-xl">
+            Flexible financing for every credit situation. From excellent credit
+            to rebuilding&nbsp;&mdash; we help Oklahoma drivers get behind the wheel.
+          </p>
 
-            {/* CTA buttons */}
-            <div className="fade-up mt-12 flex flex-wrap items-center justify-center gap-5">
-              <a
-                href="#inventory"
-                className="group relative bg-amber px-12 py-4 font-body text-base font-bold uppercase tracking-wider text-bg transition-all hover:bg-amber-light skew-x-[-4deg]"
-              >
-                <span className="skew-x-[4deg] inline-flex items-center gap-3">
-                  Browse Inventory
-                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </a>
-              <a
-                href="#financing"
-                className="group border-2 border-amber px-12 py-4 font-body text-base font-bold uppercase tracking-wider text-amber transition-all hover:bg-amber hover:text-bg skew-x-[-4deg]"
-              >
-                <span className="skew-x-[4deg] inline-block">Get Pre-Approved</span>
-              </a>
-            </div>
+          {/* CTA buttons */}
+          <div className="fade-up mt-12 flex flex-wrap items-center justify-center gap-5">
+            <a
+              href="#inventory"
+              className="group relative bg-amber px-12 py-4 font-body text-base font-bold uppercase tracking-wider text-bg transition-all hover:bg-amber-light skew-x-[-4deg]"
+            >
+              <span className="skew-x-[4deg] inline-flex items-center gap-3">
+                Browse Inventory
+                <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </span>
+            </a>
+            <a
+              href="#financing"
+              className="group border-2 border-amber px-12 py-4 font-body text-base font-bold uppercase tracking-wider text-amber transition-all hover:bg-amber hover:text-bg skew-x-[-4deg]"
+            >
+              <span className="skew-x-[4deg] inline-block">Get Pre-Approved</span>
+            </a>
           </div>
         </div>
 
         {/* ── Vehicle search bar ── */}
-        <div className="fade-up relative z-10 mx-auto w-full max-w-5xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.5)] md:p-6 mx-6">
+        <div className="fade-up relative z-10 mx-auto w-full max-w-5xl border border-border bg-card/90 backdrop-blur-sm p-5 shadow-[0_8px_40px_rgba(0,0,0,0.5)] md:p-6 mx-6">
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            <select className="w-full appearance-none border border-white/10 bg-white/10 backdrop-blur px-4 py-3.5 font-body text-sm text-text outline-none transition-colors focus:border-amber/50 cursor-pointer">
+            <select className="w-full appearance-none border border-border bg-bg px-4 py-3.5 font-body text-sm text-text outline-none transition-colors focus:border-amber/50 cursor-pointer">
               {makeOptions.map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
               ))}
             </select>
-            <select className="w-full appearance-none border border-white/10 bg-white/10 backdrop-blur px-4 py-3.5 font-body text-sm text-text outline-none transition-colors focus:border-amber/50 cursor-pointer">
+            <select className="w-full appearance-none border border-border bg-bg px-4 py-3.5 font-body text-sm text-text outline-none transition-colors focus:border-amber/50 cursor-pointer">
               {modelOptions.map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
               ))}
             </select>
-            <select className="w-full appearance-none border border-white/10 bg-white/10 backdrop-blur px-4 py-3.5 font-body text-sm text-text outline-none transition-colors focus:border-amber/50 cursor-pointer">
+            <select className="w-full appearance-none border border-border bg-bg px-4 py-3.5 font-body text-sm text-text outline-none transition-colors focus:border-amber/50 cursor-pointer">
               {priceOptions.map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
               ))}
             </select>
-            <select className="w-full appearance-none border border-white/10 bg-white/10 backdrop-blur px-4 py-3.5 font-body text-sm text-text outline-none transition-colors focus:border-amber/50 cursor-pointer">
+            <select className="w-full appearance-none border border-border bg-bg px-4 py-3.5 font-body text-sm text-text outline-none transition-colors focus:border-amber/50 cursor-pointer">
               {yearOptions.map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
               ))}

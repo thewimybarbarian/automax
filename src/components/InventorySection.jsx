@@ -96,7 +96,7 @@ function FilterSidebar({ filters, setFilters, searchQuery, setSearchQuery, activ
   }
 
   return (
-    <div className="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] border-t-2 border-t-amber/30 p-5 w-full">
+    <div className="bg-card border border-border border-t-2 border-t-amber/30 p-5 w-full">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-bold uppercase tracking-wider text-text">Filters</h3>
@@ -121,7 +121,7 @@ function FilterSidebar({ filters, setFilters, searchQuery, setSearchQuery, activ
           placeholder="Search..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full bg-white/[0.06] border border-white/[0.08] text-text text-sm pl-10 pr-4 py-2.5 focus:outline-none focus:border-amber/50 transition-colors placeholder:text-text-dim/50"
+          className="w-full bg-bg border border-border text-text text-sm pl-10 pr-4 py-2.5 focus:outline-none focus:border-amber/50 transition-colors placeholder:text-text-dim/50"
         />
       </div>
 
@@ -132,7 +132,7 @@ function FilterSidebar({ filters, setFilters, searchQuery, setSearchQuery, activ
           const activeInCategory = (filters[cat.key] || []).length
 
           return (
-            <div key={cat.key} className="border-t border-white/[0.06]">
+            <div key={cat.key} className="border-t border-border">
               <button
                 onClick={() => toggleSection(cat.key)}
                 className="w-full flex items-center justify-between py-3.5 cursor-pointer group"
@@ -166,7 +166,7 @@ function FilterSidebar({ filters, setFilters, searchQuery, setSearchQuery, activ
                           className={`w-4 h-4 border flex items-center justify-center transition-all ${
                             isActive
                               ? 'bg-amber border-amber'
-                              : 'border-white/[0.08] group-hover/opt:border-amber/50'
+                              : 'border-border group-hover/opt:border-amber/50'
                           }`}
                         >
                           {isActive && (
@@ -249,11 +249,8 @@ export default function InventorySection() {
   })
 
   return (
-    <section ref={sectionRef} id="inventory" className="relative overflow-hidden bg-bg py-24 px-6 font-body">
-      {/* Car showroom background */}
-      <div className="absolute inset-0 bg-cover bg-center bg-fixed" style={{ backgroundImage: 'url(https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg?auto=compress&cs=tinysrgb&w=1920)' }} />
-      <div className="absolute inset-0 bg-bg/90" />
-      <div className="max-w-7xl mx-auto relative">
+    <section ref={sectionRef} id="inventory" className="bg-bg py-24 px-6 font-body">
+      <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-14 fade-up">
           <div className="flex items-center justify-center gap-3 mb-5">
@@ -273,7 +270,7 @@ export default function InventorySection() {
         <div className="lg:hidden flex justify-center mb-8 fade-up">
           <button
             onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-            className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.08] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-text hover:border-amber/30 transition-colors cursor-pointer"
+            className="flex items-center gap-2 bg-card border border-border px-6 py-3 text-sm font-semibold uppercase tracking-wider text-text hover:border-amber/30 transition-colors cursor-pointer"
           >
             <svg className="w-4 h-4 text-amber" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="4" y1="6" x2="20" y2="6" />
@@ -339,17 +336,17 @@ export default function InventorySection() {
                 {filtered.map((vehicle, index) => (
                   <div
                     key={vehicle.id}
-                    className="fade-up bg-white/[0.04] backdrop-blur-lg border border-white/[0.08] border-t-2 border-t-amber/30 overflow-hidden group hover:bg-white/[0.07] hover:border-amber/30 hover:border-t-amber hover:-translate-y-1 transition-all duration-300"
+                    className="fade-up bg-card border border-border border-t-2 border-t-amber/30 overflow-hidden group hover:border-amber/30 hover:border-t-amber hover:-translate-y-1 transition-all duration-300"
                     style={{ transitionDelay: `${index * 100}ms` }}
                   >
                     {/* Image */}
                     <div className="relative overflow-hidden bg-[#111]">
                       <VehicleImage vehicle={vehicle} />
-                      <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
+                      <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-card to-transparent pointer-events-none" />
                       <span className="absolute top-4 right-4 bg-amber text-bg font-bold text-sm px-3.5 py-1.5 shadow-lg">
                         ${vehicle.price.toLocaleString()}
                       </span>
-                      <span className="absolute top-4 left-4 bg-black/50 backdrop-blur-md text-text-dim text-xs font-medium px-3 py-1.5 border border-white/[0.08]">
+                      <span className="absolute top-4 left-4 bg-bg/80 backdrop-blur-sm text-text-dim text-xs font-medium px-3 py-1.5 border border-border">
                         {vehicle.type}
                       </span>
                     </div>
