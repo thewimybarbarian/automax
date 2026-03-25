@@ -226,8 +226,9 @@ export default function MotionHero() {
       </section>
 
       {/* ── Vehicle search bar — outside section to avoid overflow:hidden clipping dropdowns ── */}
+      <div className="relative z-20 -mt-20 px-4 sm:px-6">
       <motion.div
-        className="relative z-20 mx-auto w-full max-w-5xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.5)] md:p-6 -mt-20 mx-4 sm:mx-6"
+        className="mx-auto w-full max-w-5xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.5)] md:p-6"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.6 }}
@@ -245,6 +246,7 @@ export default function MotionHero() {
           </button>
         </div>
       </motion.div>
+      </div>
     </div>
   )
 }
