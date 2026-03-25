@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useFadeUp } from '../hooks/useFadeUp'
-const logoSvg = '/images/auto-max-logo-3.png'
+const logoSvg = '/images/auto=max-one.png'
 
 const locations = [
   {
