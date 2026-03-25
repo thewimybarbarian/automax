@@ -14,7 +14,7 @@ export default function MotionHero() {
       <section className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-bg">
         {/* Background image */}
         <img
-          src="/images/hero.png"
+          src="/images/hero.webp"
           alt=""
           className="absolute inset-0 w-full h-full object-cover hero-bg-img"
         />

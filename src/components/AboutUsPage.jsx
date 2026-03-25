@@ -179,7 +179,7 @@ export default function AboutUsPage() {
         {/* Background image with parallax feel */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/hero.png)' }}
+          style={{ backgroundImage: 'url(/images/hero.webp)' }}
         />
         {/* Heavy overlay — cinematic */}
         <div className="absolute inset-0 bg-gradient-to-b from-bg/60 via-bg/40 to-bg" />
