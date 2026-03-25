@@ -100,8 +100,8 @@ export default function ContactFooter() {
         </div>
 
         {/* CTA Card */}
-        <div className="fade-up bg-gradient-to-r from-amber/10 via-card to-amber/10 border border-amber/20 p-10 text-center mt-12 overflow-hidden">
-          <h3 className="text-3xl md:text-4xl font-bold text-text font-body">
+        <div className="fade-up bg-gradient-to-r from-amber/10 via-card to-amber/10 border border-amber/20 p-6 sm:p-10 text-center mt-8 sm:mt-12 overflow-hidden">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-text font-body">
             Ready to Find Your{' '}
             <span className="font-heading italic text-amber">
               Perfect Vehicle
@@ -131,92 +131,99 @@ export default function ContactFooter() {
       </section>
 
       {/* ── Full Footer ── */}
-      <footer className="bg-card border-t border-border mt-20 pt-16 pb-8">
-        <div className="max-w-7xl mx-auto px-6">
+      <footer className="bg-card border-t border-border mt-12 sm:mt-20 pt-10 sm:pt-16 pb-6 sm:pb-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           {/* Footer Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 fade-up">
-            {/* Column 1 — Brand */}
-            <div>
-              <img src={logoSvg} alt="AutoMax Auto Group" className="w-[240px] mb-5" />
-              <p className="text-text-dim text-sm leading-relaxed font-body">
+          <div className="fade-up">
+            {/* Brand — full width on mobile */}
+            <div className="mb-8 sm:mb-0 pb-6 sm:pb-0 border-b border-border sm:border-none text-center sm:text-left sm:float-left sm:w-1/4 lg:w-auto lg:float-none">
+              <img src={logoSvg} alt="AutoMax Auto Group" className="w-[160px] sm:w-[200px] lg:w-[240px] mb-4 mx-auto sm:mx-0" />
+              <p className="text-text-dim text-sm leading-relaxed font-body max-w-xs mx-auto sm:mx-0">
                 Oklahoma&rsquo;s trusted dealer for over 28 years. Quality
                 pre-owned vehicles with flexible financing options.
               </p>
             </div>
 
-            {/* Column 2 — Quick Links */}
-            <div>
-              <h4 className="text-text font-semibold mb-4 font-body">
-                Quick Links
-              </h4>
-              <ul className="space-y-2.5">
-                {quickLinks.map((link) => (
-                  <li key={link}>
-                    <a
-                      href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="text-text-dim hover:text-amber transition-colors text-sm font-body"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* Links grid — 2 columns on mobile, 4 total on desktop */}
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 clear-both">
+              {/* Quick Links */}
+              <div>
+                <h4 className="text-text font-semibold mb-3 sm:mb-4 text-sm uppercase tracking-wider font-body">
+                  Quick Links
+                </h4>
+                <ul className="space-y-2">
+                  {quickLinks.map((link) => (
+                    <li key={link}>
+                      <a
+                        href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="text-text-dim hover:text-amber transition-colors text-sm font-body"
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            {/* Column 3 — Services */}
-            <div>
-              <h4 className="text-text font-semibold mb-4 font-body">
-                Services
-              </h4>
-              <ul className="space-y-2.5">
-                {serviceLinks.map((link) => (
-                  <li key={link}>
-                    <a
-                      href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="text-text-dim hover:text-amber transition-colors text-sm font-body"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              {/* Services */}
+              <div>
+                <h4 className="text-text font-semibold mb-3 sm:mb-4 text-sm uppercase tracking-wider font-body">
+                  Services
+                </h4>
+                <ul className="space-y-2">
+                  {serviceLinks.map((link) => (
+                    <li key={link}>
+                      <a
+                        href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="text-text-dim hover:text-amber transition-colors text-sm font-body"
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            {/* Column 4 — Hours & Contact */}
-            <div>
-              <h4 className="text-text font-semibold mb-4 font-body">
-                Hours &amp; Contact
-              </h4>
-              <p className="text-text-dim text-sm font-body">
-                Mon&ndash;Sat: 9AM&ndash;8PM
-              </p>
-              <p className="text-amber/70 text-sm font-medium mb-5 font-body">
-                Sunday: Closed
-              </p>
-              <ul className="space-y-3">
-                {locations.map((loc) => (
-                  <li key={loc.phone}>
-                    <span className="block text-text-dim text-xs font-body">
-                      {loc.name}
-                    </span>
-                    <a
-                      href={`tel:${loc.phone.replace(/[^\d+]/g, '')}`}
-                      className="text-text hover:text-amber transition-colors text-sm font-semibold font-body"
-                    >
-                      {loc.phone}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              {/* Hours & Contact */}
+              <div className="col-span-2 sm:col-span-2 lg:col-span-2 mt-2 sm:mt-0 pt-4 sm:pt-0 border-t border-border sm:border-none">
+                <h4 className="text-text font-semibold mb-3 sm:mb-4 text-sm uppercase tracking-wider font-body">
+                  Hours &amp; Contact
+                </h4>
+                <div className="flex flex-col sm:flex-row lg:flex-col gap-4 sm:gap-8 lg:gap-0">
+                  <div className="lg:mb-5">
+                    <p className="text-text-dim text-sm font-body">
+                      Mon&ndash;Sat: 9AM&ndash;8PM
+                    </p>
+                    <p className="text-amber/70 text-sm font-medium font-body">
+                      Sunday: Closed
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">
+                    {locations.map((loc) => (
+                      <div key={loc.phone}>
+                        <span className="block text-text-dim text-xs font-body">
+                          {loc.name}
+                        </span>
+                        <a
+                          href={`tel:${loc.phone.replace(/[^\d+]/g, '')}`}
+                          className="text-text hover:text-amber transition-colors text-sm font-semibold font-body"
+                        >
+                          {loc.phone}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Bottom Bar */}
-          <div className="border-t border-border mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 fade-up">
-            <p className="text-text-dim text-sm font-body">
+          <div className="border-t border-border mt-8 sm:mt-12 pt-5 sm:pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4 fade-up">
+            <p className="text-text-dim text-xs sm:text-sm font-body">
               &copy; 2024 AutoMax Auto Group. All rights reserved.
             </p>
-            <p className="text-text-dim text-sm font-body">
+            <p className="text-text-dim text-xs sm:text-sm font-body">
               Website by{' '}
               <span className="text-amber font-semibold">r3dpill.AI</span>
             </p>

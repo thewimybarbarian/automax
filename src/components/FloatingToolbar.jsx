@@ -41,51 +41,51 @@ export default function FloatingToolbar() {
 
   return (
     <div
-      className={`fixed top-20 right-6 z-[999] flex items-center gap-1.5 transition-all duration-500 ${
+      className={`fixed top-20 right-3 sm:right-6 z-[999] flex items-center gap-1 sm:gap-1.5 transition-all duration-500 ${
         visible
           ? 'opacity-100 translate-x-0'
           : 'opacity-0 translate-x-16 pointer-events-none'
       }`}
     >
       {/* Action buttons */}
-      <div className={`flex items-center gap-1.5 ${pulse ? 'animate-[toolbarEntry_0.6s_ease-out]' : ''}`}>
+      <div className={`flex items-center gap-1 sm:gap-1.5 ${pulse ? 'animate-[toolbarEntry_0.6s_ease-out]' : ''}`}>
         {/* Phone */}
         <a
           href="tel:+14056064000"
-          className="group relative w-11 h-11 flex items-center justify-center bg-card/90 backdrop-blur-md border border-border hover:border-amber hover:bg-amber/10 transition-all duration-300 cursor-pointer"
+          className="group relative w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center bg-card/90 backdrop-blur-md border border-border hover:border-amber hover:bg-amber/10 transition-all duration-300 cursor-pointer"
           title="Call Us"
         >
-          <svg className="w-[18px] h-[18px] text-text-dim group-hover:text-amber transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-text-dim group-hover:text-amber transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
           </svg>
-          {/* Tooltip */}
-          <span className="absolute right-full mr-2 px-2.5 py-1 bg-bg border border-border text-text text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          {/* Tooltip — hidden on mobile */}
+          <span className="hidden sm:block absolute right-full mr-2 px-2.5 py-1 bg-bg border border-border text-text text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
             (405) 606-4000
           </span>
         </a>
 
-        {/* Dot separator */}
-        <span className="w-1 h-1 bg-amber/40 shrink-0" />
+        {/* Dot separator — hidden on mobile */}
+        <span className="hidden sm:block w-1 h-1 bg-amber/40 shrink-0" />
 
         {/* Locations */}
         <a
           href="#contact"
-          className="group relative w-11 h-11 flex items-center justify-center bg-card/90 backdrop-blur-md border border-border hover:border-amber hover:bg-amber/10 transition-all duration-300 cursor-pointer"
+          className="group relative w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center bg-card/90 backdrop-blur-md border border-border hover:border-amber hover:bg-amber/10 transition-all duration-300 cursor-pointer"
           title="Find a Location"
         >
-          <svg className="w-[18px] h-[18px] text-text-dim group-hover:text-amber transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-text-dim group-hover:text-amber transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
             <circle cx="12" cy="10" r="3" />
           </svg>
-          <span className="absolute right-full mr-2 px-2.5 py-1 bg-bg border border-border text-text text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          <span className="hidden sm:block absolute right-full mr-2 px-2.5 py-1 bg-bg border border-border text-text text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
             3 Locations
           </span>
         </a>
 
-        {/* Search */}
+        {/* Search — hidden on mobile to save space */}
         <a
           href="#inventory"
-          className="group relative w-11 h-11 flex items-center justify-center bg-card/90 backdrop-blur-md border border-border hover:border-amber hover:bg-amber/10 transition-all duration-300 cursor-pointer"
+          className="hidden sm:flex group relative w-11 h-11 items-center justify-center bg-card/90 backdrop-blur-md border border-border hover:border-amber hover:bg-amber/10 transition-all duration-300 cursor-pointer"
           title="Search Inventory"
         >
           <svg className="w-[18px] h-[18px] text-text-dim group-hover:text-amber transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -98,8 +98,8 @@ export default function FloatingToolbar() {
         </a>
       </div>
 
-      {/* Sort dropdown */}
-      <div className="relative ml-1">
+      {/* Sort dropdown — hidden on mobile */}
+      <div className="hidden sm:block relative ml-1">
         <button
           onClick={(e) => { e.stopPropagation(); setSortOpen(!sortOpen) }}
           className={`flex items-center gap-2 bg-card/90 backdrop-blur-md border px-3.5 h-11 text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
