@@ -1,5 +1,5 @@
-import { useState, useMemo, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
 
 const APR = 0.069;
 const MONTHLY_RATE = APR / 12;
@@ -28,9 +28,163 @@ function calculateBuyingPower(monthly, termMonths) {
   return monthly * ((1 - Math.pow(1 + MONTHLY_RATE, -termMonths)) / MONTHLY_RATE);
 }
 
-function sliderBackground(value, min, max) {
-  const pct = ((value - min) / (max - min)) * 100;
-  return `linear-gradient(to right, #e8a849 0%, #d4943d ${pct}%, rgba(255,255,255,0.06) ${pct}%, rgba(255,255,255,0.06) 100%)`;
+/* ═══ Premium Draggable Slider ═══ */
+function DraggableSlider({ value, min, max, step, onChange }) {
+  const trackRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const thumbX = useMotionValue(0);
+  const glowOpacity = useSpring(0, { stiffness: 300, damping: 30 });
+
+  // Percentage of value in range
+  const pct = (value - min) / (max - min);
+
+  // Snap value to nearest step
+  const snap = useCallback(
+    (raw) => {
+      const clamped = Math.min(max, Math.max(min, raw));
+      return Math.round(clamped / step) * step;
+    },
+    [min, max, step]
+  );
+
+  // Convert a clientX to a value
+  const clientXToValue = useCallback(
+    (clientX) => {
+      const track = trackRef.current;
+      if (!track) return value;
+      const rect = track.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+      return snap(min + ratio * (max - min));
+    },
+    [min, max, snap, value]
+  );
+
+  // Sync thumb position when value changes externally
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || isDragging) return;
+    const width = track.getBoundingClientRect().width;
+    thumbX.set(pct * width);
+  }, [pct, isDragging]);
+
+  // Handle drag
+  const handlePointerDown = useCallback(
+    (e) => {
+      e.preventDefault();
+      setIsDragging(true);
+      glowOpacity.set(1);
+
+      const newVal = clientXToValue(e.clientX);
+      onChange(newVal);
+
+      const handleMove = (e2) => {
+        const val = clientXToValue(e2.clientX);
+        onChange(val);
+      };
+      const handleUp = () => {
+        setIsDragging(false);
+        glowOpacity.set(0);
+        window.removeEventListener("pointermove", handleMove);
+        window.removeEventListener("pointerup", handleUp);
+      };
+      window.addEventListener("pointermove", handleMove);
+      window.addEventListener("pointerup", handleUp);
+    },
+    [clientXToValue, onChange, glowOpacity]
+  );
+
+  return (
+    <div
+      className="relative py-3 cursor-pointer touch-none select-none"
+      onPointerDown={handlePointerDown}
+      onMouseEnter={() => { setIsHovering(true); glowOpacity.set(0.5); }}
+      onMouseLeave={() => { if (!isDragging) { setIsHovering(false); glowOpacity.set(0); } }}
+    >
+      {/* Track background */}
+      <div ref={trackRef} className="relative h-2 rounded-full bg-white/[0.06] overflow-visible">
+        {/* Filled track */}
+        <motion.div
+          className="absolute inset-y-0 left-0 rounded-full"
+          style={{
+            width: `${pct * 100}%`,
+            background: "linear-gradient(90deg, #d4943d, #e8a849, #f0be5e)",
+          }}
+          layout
+          transition={{ type: "spring", stiffness: 500, damping: 40 }}
+        />
+
+        {/* Track glow on drag */}
+        <motion.div
+          className="absolute inset-y-0 left-0 rounded-full blur-sm"
+          style={{
+            width: `${pct * 100}%`,
+            background: "linear-gradient(90deg, #d4943d, #e8a849)",
+            opacity: glowOpacity,
+          }}
+        />
+
+        {/* Thumb */}
+        <motion.div
+          className="absolute top-1/2 -translate-y-1/2 z-10"
+          style={{ left: `${pct * 100}%` }}
+          animate={{
+            scale: isDragging ? 1.3 : isHovering ? 1.1 : 1,
+          }}
+          transition={{ type: "spring", stiffness: 400, damping: 25 }}
+        >
+          <div className="relative -ml-3.5">
+            {/* Outer glow ring */}
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              style={{
+                width: 28,
+                height: 28,
+                background: "radial-gradient(circle, rgba(232,168,73,0.4) 0%, transparent 70%)",
+                opacity: glowOpacity,
+                scale: 2,
+              }}
+            />
+            {/* Thumb body */}
+            <div
+              className="w-7 h-7 rounded-full border-[3px] border-[#1a1a1f] shadow-lg"
+              style={{
+                background: "linear-gradient(135deg, #f0be5e, #d4943d)",
+                boxShadow: isDragging
+                  ? "0 0 20px rgba(232,168,73,0.7), 0 0 40px rgba(232,168,73,0.3)"
+                  : "0 0 12px rgba(232,168,73,0.4)",
+              }}
+            >
+              {/* Inner grip lines */}
+              <div className="flex items-center justify-center h-full gap-[2px]">
+                <div className="w-[1.5px] h-2.5 bg-[#1a1a1f]/40 rounded-full" />
+                <div className="w-[1.5px] h-2.5 bg-[#1a1a1f]/40 rounded-full" />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Floating tooltip on drag */}
+        <AnimatePresence>
+          {isDragging && (
+            <motion.div
+              className="absolute -top-10 z-20 pointer-events-none"
+              style={{ left: `${pct * 100}%` }}
+              initial={{ opacity: 0, y: 8, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 8, scale: 0.8 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            >
+              <div className="-ml-8 bg-amber/90 text-bg text-xs font-bold px-2.5 py-1 rounded-md whitespace-nowrap backdrop-blur-sm shadow-lg">
+                ${value.toLocaleString("en-US")}
+                <div className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-2 h-2 bg-amber/90 rotate-45" />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
 }
 
 /* Animated number */
@@ -130,44 +284,6 @@ export default function FinancingCalculator() {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <style>{`
-        .fin-slider {
-          -webkit-appearance: none;
-          width: 100%;
-          height: 6px;
-          outline: none;
-          cursor: pointer;
-          border-radius: 3px;
-        }
-        .fin-slider::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          width: 24px;
-          height: 24px;
-          background: linear-gradient(135deg, #e8a849, #d4943d);
-          cursor: pointer;
-          border-radius: 50%;
-          border: 3px solid #1a1a1f;
-          box-shadow: 0 0 12px rgba(232,168,73,0.5), 0 0 4px rgba(232,168,73,0.3);
-          transition: box-shadow 0.2s;
-        }
-        .fin-slider::-webkit-slider-thumb:hover {
-          box-shadow: 0 0 20px rgba(232,168,73,0.7), 0 0 8px rgba(232,168,73,0.5);
-        }
-        .fin-slider::-moz-range-thumb {
-          width: 20px;
-          height: 20px;
-          background: linear-gradient(135deg, #e8a849, #d4943d);
-          border: 3px solid #1a1a1f;
-          border-radius: 50%;
-          cursor: pointer;
-          box-shadow: 0 0 12px rgba(232,168,73,0.5);
-        }
-        .fin-slider::-moz-range-track {
-          height: 6px;
-          border: none;
-          border-radius: 3px;
-        }
-      `}</style>
 
       {/* Ambient glows */}
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-amber/[0.03] rounded-full blur-[150px] pointer-events-none" />
@@ -215,10 +331,7 @@ export default function FinancingCalculator() {
                     <AnimatedNumber value={vehiclePrice} />
                   </span>
                 </div>
-                <input type="range" className="fin-slider" min={10000} max={60000} step={500}
-                  value={vehiclePrice} onChange={(e) => setVehiclePrice(Number(e.target.value))}
-                  style={{ background: sliderBackground(vehiclePrice, 10000, 60000) }}
-                />
+                <DraggableSlider value={vehiclePrice} min={10000} max={60000} step={500} onChange={setVehiclePrice} />
                 <div className="flex justify-between mt-1.5">
                   <span className="text-dim text-[9px] tracking-wider">$10K</span>
                   <span className="text-dim text-[9px] tracking-wider">$60K</span>
@@ -233,10 +346,7 @@ export default function FinancingCalculator() {
                     <AnimatedNumber value={downPayment} />
                   </span>
                 </div>
-                <input type="range" className="fin-slider" min={0} max={15000} step={250}
-                  value={downPayment} onChange={(e) => setDownPayment(Number(e.target.value))}
-                  style={{ background: sliderBackground(downPayment, 0, 15000) }}
-                />
+                <DraggableSlider value={downPayment} min={0} max={15000} step={250} onChange={setDownPayment} />
                 <div className="flex justify-between mt-1.5">
                   <span className="text-dim text-[9px] tracking-wider">$0</span>
                   <span className="text-dim text-[9px] tracking-wider">$15K</span>
