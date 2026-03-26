@@ -28,18 +28,13 @@ function calculateBuyingPower(monthly, termMonths) {
   return monthly * ((1 - Math.pow(1 + MONTHLY_RATE, -termMonths)) / MONTHLY_RATE);
 }
 
-/* ═══ Premium Draggable Slider ═══ */
+/* ═══ Squeeze Draggable Slider ═══ */
 function DraggableSlider({ value, min, max, step, onChange }) {
   const trackRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
-  const thumbX = useMotionValue(0);
-  const glowOpacity = useSpring(0, { stiffness: 300, damping: 30 });
 
-  // Percentage of value in range
   const pct = (value - min) / (max - min);
 
-  // Snap value to nearest step
   const snap = useCallback(
     (raw) => {
       const clamped = Math.min(max, Math.max(min, raw));
@@ -48,7 +43,6 @@ function DraggableSlider({ value, min, max, step, onChange }) {
     [min, max, step]
   );
 
-  // Convert a clientX to a value
   const clientXToValue = useCallback(
     (clientX) => {
       const track = trackRef.current;
@@ -60,124 +54,134 @@ function DraggableSlider({ value, min, max, step, onChange }) {
     [min, max, snap, value]
   );
 
-  // Sync thumb position when value changes externally
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track || isDragging) return;
-    const width = track.getBoundingClientRect().width;
-    thumbX.set(pct * width);
-  }, [pct, isDragging]);
-
-  // Handle drag
   const handlePointerDown = useCallback(
     (e) => {
       e.preventDefault();
       setIsDragging(true);
-      glowOpacity.set(1);
-
       const newVal = clientXToValue(e.clientX);
       onChange(newVal);
 
-      const handleMove = (e2) => {
-        const val = clientXToValue(e2.clientX);
-        onChange(val);
-      };
+      const handleMove = (e2) => onChange(clientXToValue(e2.clientX));
       const handleUp = () => {
         setIsDragging(false);
-        glowOpacity.set(0);
         window.removeEventListener("pointermove", handleMove);
         window.removeEventListener("pointerup", handleUp);
       };
       window.addEventListener("pointermove", handleMove);
       window.addEventListener("pointerup", handleUp);
     },
-    [clientXToValue, onChange, glowOpacity]
+    [clientXToValue, onChange]
   );
+
+  const FILLED_H = 40;  // fat filled side
+  const EMPTY_H = 10;   // skinny unfilled side
 
   return (
     <div
-      className="relative py-3 cursor-pointer touch-none select-none"
+      ref={trackRef}
+      className="relative cursor-pointer touch-none select-none"
+      style={{ height: FILLED_H + 16 }}
       onPointerDown={handlePointerDown}
-      onMouseEnter={() => { setIsHovering(true); glowOpacity.set(0.5); }}
-      onMouseLeave={() => { if (!isDragging) { setIsHovering(false); glowOpacity.set(0); } }}
     >
-      {/* Track background */}
-      <div ref={trackRef} className="relative h-2 rounded-full bg-white/[0.06] overflow-visible">
-        {/* Filled track */}
+      {/* Container centered vertically */}
+      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2" style={{ height: FILLED_H }}>
+
+        {/* ── Filled (fat) side ── */}
         <motion.div
-          className="absolute inset-y-0 left-0 rounded-full"
-          style={{
-            width: `${pct * 100}%`,
-            background: "linear-gradient(90deg, #d4943d, #e8a849, #f0be5e)",
-          }}
-          layout
+          className="absolute left-0 top-0 rounded-l-xl overflow-hidden"
+          style={{ width: `${pct * 100}%`, height: FILLED_H }}
           transition={{ type: "spring", stiffness: 500, damping: 40 }}
-        />
+        >
+          {/* Gradient fill */}
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(90deg, #b87a2a, #d4943d, #e8a849, #f0be5e)" }}
+          />
+          {/* Inner shadow for depth */}
+          <div
+            className="absolute inset-0"
+            style={{ boxShadow: "inset 0 -4px 8px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.1)" }}
+          />
+          {/* Subtle glow */}
+          <motion.div
+            className="absolute inset-0"
+            animate={{ opacity: isDragging ? 0.6 : 0 }}
+            style={{ boxShadow: "0 0 20px rgba(232,168,73,0.5)", background: "transparent" }}
+          />
+          {/* Value label inside filled area */}
+          <div className="absolute inset-0 flex items-center justify-start pl-3 pointer-events-none">
+            <AnimatePresence mode="wait">
+              {pct > 0.15 && (
+                <motion.span
+                  key={value}
+                  className="text-[#1a1a1f] font-bold text-xs font-heading tabular-nums whitespace-nowrap"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.7 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  ${value.toLocaleString("en-US")}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
+        </motion.div>
 
-        {/* Track glow on drag */}
-        <motion.div
-          className="absolute inset-y-0 left-0 rounded-full blur-sm"
+        {/* ── Unfilled (skinny) side ── */}
+        <div
+          className="absolute right-0 rounded-r-full"
           style={{
-            width: `${pct * 100}%`,
-            background: "linear-gradient(90deg, #d4943d, #e8a849)",
-            opacity: glowOpacity,
+            left: `${pct * 100}%`,
+            height: EMPTY_H,
+            top: (FILLED_H - EMPTY_H) / 2,
+            background: "rgba(255,255,255,0.06)",
           }}
         />
 
-        {/* Thumb */}
+        {/* ── Thumb / Divider ── */}
         <motion.div
-          className="absolute top-1/2 -translate-y-1/2 z-10"
-          style={{ left: `${pct * 100}%` }}
-          animate={{
-            scale: isDragging ? 1.3 : isHovering ? 1.1 : 1,
+          className="absolute z-10"
+          style={{
+            left: `${pct * 100}%`,
+            top: -3,
+            height: FILLED_H + 6,
           }}
+          animate={{ scale: isDragging ? 1.1 : 1 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
         >
-          <div className="relative -ml-3.5">
-            {/* Outer glow ring */}
-            <motion.div
-              className="absolute inset-0 rounded-full"
-              style={{
-                width: 28,
-                height: 28,
-                background: "radial-gradient(circle, rgba(232,168,73,0.4) 0%, transparent 70%)",
-                opacity: glowOpacity,
-                scale: 2,
-              }}
-            />
-            {/* Thumb body */}
-            <div
-              className="w-7 h-7 rounded-full border-[3px] border-[#1a1a1f] shadow-lg"
-              style={{
-                background: "linear-gradient(135deg, #f0be5e, #d4943d)",
-                boxShadow: isDragging
-                  ? "0 0 20px rgba(232,168,73,0.7), 0 0 40px rgba(232,168,73,0.3)"
-                  : "0 0 12px rgba(232,168,73,0.4)",
-              }}
-            >
-              {/* Inner grip lines */}
-              <div className="flex items-center justify-center h-full gap-[2px]">
-                <div className="w-[1.5px] h-2.5 bg-[#1a1a1f]/40 rounded-full" />
-                <div className="w-[1.5px] h-2.5 bg-[#1a1a1f]/40 rounded-full" />
-              </div>
+          <div
+            className="relative -ml-[5px] h-full w-[10px] rounded-full"
+            style={{
+              background: "linear-gradient(180deg, #f5d08a, #e8a849, #d4943d)",
+              boxShadow: isDragging
+                ? "0 0 16px rgba(232,168,73,0.8), 0 0 30px rgba(232,168,73,0.3)"
+                : "0 0 8px rgba(232,168,73,0.5)",
+              border: "2px solid #1a1a1f",
+            }}
+          >
+            {/* Grip dots */}
+            <div className="flex flex-col items-center justify-center h-full gap-1">
+              <div className="w-1 h-1 rounded-full bg-[#1a1a1f]/40" />
+              <div className="w-1 h-1 rounded-full bg-[#1a1a1f]/40" />
+              <div className="w-1 h-1 rounded-full bg-[#1a1a1f]/40" />
             </div>
           </div>
         </motion.div>
 
-        {/* Floating tooltip on drag */}
+        {/* ── Floating tooltip ── */}
         <AnimatePresence>
-          {isDragging && (
+          {isDragging && pct <= 0.15 && (
             <motion.div
-              className="absolute -top-10 z-20 pointer-events-none"
-              style={{ left: `${pct * 100}%` }}
-              initial={{ opacity: 0, y: 8, scale: 0.8 }}
+              className="absolute z-20 pointer-events-none"
+              style={{ left: `${pct * 100}%`, top: -32 }}
+              initial={{ opacity: 0, y: 6, scale: 0.8 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 8, scale: 0.8 }}
+              exit={{ opacity: 0, y: 6, scale: 0.8 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
-              <div className="-ml-8 bg-amber/90 text-bg text-xs font-bold px-2.5 py-1 rounded-md whitespace-nowrap backdrop-blur-sm shadow-lg">
+              <div className="-ml-8 bg-amber text-bg text-[10px] font-bold px-2 py-0.5 rounded whitespace-nowrap shadow-lg">
                 ${value.toLocaleString("en-US")}
-                <div className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-2 h-2 bg-amber/90 rotate-45" />
+                <div className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-2 h-2 bg-amber rotate-45" />
               </div>
             </motion.div>
           )}
