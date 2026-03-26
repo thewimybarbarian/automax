@@ -15,15 +15,22 @@ const vehicles = [
 function BadgeIcon({ badge }) {
   if (badge === 'Price Drop') {
     return (
-      <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 5v14M5 12l7 7 7-7" />
       </svg>
     )
   }
   if (badge === 'Hot') {
     return (
-      <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.13-5.54 3.5-6.9.4-.39 1.05-.15 1.12.4.16 1.27.63 2.56 1.58 3.5.16.16.44.05.44-.18 0-2.03.7-4.3 2.36-6.32.34-.41.96-.32 1.17.15C14.21 8.3 15 10.2 15 12c0 .69-.16 1.36-.44 1.97a.255.255 0 00.38.29c.67-.51 1.2-1.2 1.56-2.01.18-.41.7-.49 1 -.14C18.43 13.12 21 15.42 21 18c0 2.76-4.03 5-9 5z" />
+      </svg>
+    )
+  }
+  if (badge === 'Just Listed') {
+    return (
+      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
       </svg>
     )
   }
@@ -33,14 +40,45 @@ function BadgeIcon({ badge }) {
 function getBadgeStyles(badge) {
   switch (badge) {
     case 'Just Listed':
-      return 'bg-amber text-bg animate-pulse'
+      return 'bg-gradient-to-r from-amber to-amber-light text-bg shadow-lg shadow-amber/30'
     case 'Price Drop':
-      return 'bg-emerald-500 text-white'
+      return 'bg-gradient-to-r from-emerald-500 to-emerald-400 text-white shadow-lg shadow-emerald-500/30'
     case 'Hot':
-      return 'bg-red-500 text-white'
+      return 'bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg shadow-red-500/30'
     default:
       return ''
   }
+}
+
+/* Spec chip icons */
+function MilesIcon() {
+  return (
+    <svg className="w-3.5 h-3.5 text-amber" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 6v6l4 2" />
+    </svg>
+  )
+}
+function MpgIcon() {
+  return (
+    <svg className="w-3.5 h-3.5 text-amber" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 22V6l5-4 5 4v16" /><path d="M13 10h4l2 2v10" /><path d="M7 10h2" /><path d="M7 14h2" /><path d="M7 18h2" />
+    </svg>
+  )
+}
+function EngineIcon() {
+  return (
+    <svg className="w-3.5 h-3.5 text-amber" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 10h10M7 14h10M12 2v4M6 6h12l2 4v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8l2-4z" />
+    </svg>
+  )
+}
+function DrivetrainIcon() {
+  return (
+    <svg className="w-3.5 h-3.5 text-amber" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="3" /><circle cx="4" cy="4" r="2" /><circle cx="20" cy="4" r="2" /><circle cx="4" cy="20" r="2" /><circle cx="20" cy="20" r="2" /><path d="M6 6l4.5 4.5M13.5 13.5L18 18M13.5 10.5L18 6M6 18l4.5-4.5" />
+    </svg>
+  )
 }
 
 const filterCategories = [
@@ -285,27 +323,65 @@ export default function InventorySection() {
       {/* Car showroom background */}
       <div className="absolute inset-0 bg-cover bg-center bg-fixed" style={{ backgroundImage: 'url(https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg?auto=compress&cs=tinysrgb&w=1920)' }} />
       <div className="absolute inset-0 bg-bg/90" />
+
+      {/* Card hover/shimmer animations */}
+      <style>{`
+        @keyframes cardShine {
+          0% { transform: translateX(-100%) skewX(-15deg); }
+          100% { transform: translateX(200%) skewX(-15deg); }
+        }
+        @keyframes btnShimmer {
+          0% { left: -100%; }
+          100% { left: 200%; }
+        }
+        .vehicle-card:hover .card-shine {
+          animation: cardShine 0.8s ease-out;
+        }
+        .vehicle-card:hover .card-glow {
+          opacity: 1;
+        }
+        .vehicle-card:hover .card-border {
+          opacity: 1;
+        }
+        .view-btn:hover .btn-shimmer {
+          animation: btnShimmer 0.6s ease-out;
+        }
+      `}</style>
+
       <div className="max-w-7xl mx-auto relative">
-        {/* Section Header */}
-        <div className="text-center mb-14 fade-up">
-          <div className="flex items-center justify-center gap-3 mb-5">
-            <span className="h-px w-8 bg-amber/50" />
-            <span className="text-amber uppercase tracking-[0.2em] text-xs font-semibold">
-              Featured Vehicles
-            </span>
-            <span className="h-px w-8 bg-amber/50" />
+        {/* Section Header — premium with ambient glow */}
+        <div className="text-center mb-14 fade-up relative">
+          {/* Ambient glow behind heading */}
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[200px] pointer-events-none"
+            style={{ background: 'radial-gradient(ellipse, rgba(232,168,73,0.08) 0%, transparent 70%)' }}
+          />
+          <div className="relative">
+            <div className="flex items-center justify-center gap-3 mb-5">
+              <span className="h-px w-12 bg-gradient-to-r from-transparent to-amber/60" />
+              <span className="text-amber uppercase tracking-[0.3em] text-xs font-semibold border border-amber/20 px-4 py-1.5 bg-amber/[0.05]">
+                Featured Vehicles
+              </span>
+              <span className="h-px w-12 bg-gradient-to-l from-transparent to-amber/60" />
+            </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text">
+              Find Your{' '}
+              <span className="font-heading italic text-amber relative">
+                Next Ride
+                <span className="absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber/50 to-transparent" />
+              </span>
+            </h2>
+            <p className="mt-5 text-text-dim text-base max-w-lg mx-auto">
+              Hand-picked quality vehicles with full inspections and CARFAX reports
+            </p>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text">
-            Find Your{' '}
-            <span className="font-heading italic text-amber">Next Ride</span>
-          </h2>
         </div>
 
         {/* Mobile Filter Toggle */}
         <div className="lg:hidden flex justify-center mb-8 fade-up">
           <button
             onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-            className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.08] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-text hover:border-amber/30 transition-colors cursor-pointer"
+            className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.08] rounded-lg px-6 py-3 text-sm font-semibold uppercase tracking-wider text-text hover:border-amber/30 transition-colors cursor-pointer"
           >
             <svg className="w-4 h-4 text-amber" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="4" y1="6" x2="20" y2="6" />
@@ -314,7 +390,7 @@ export default function InventorySection() {
             </svg>
             Filters
             {activeCount > 0 && (
-              <span className="bg-amber text-bg text-xs font-bold px-1.5 py-0.5 ml-1">
+              <span className="bg-amber text-bg text-xs font-bold px-1.5 py-0.5 rounded ml-1">
                 {activeCount}
               </span>
             )}
@@ -369,86 +445,138 @@ export default function InventorySection() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
                 {filtered.map((vehicle, index) => (
-                  <div
+                  <motion.div
                     key={vehicle.id}
-                    className="fade-up bg-white/[0.04] backdrop-blur-lg border border-white/[0.08] border-t-2 border-t-amber/30 overflow-hidden group hover:bg-white/[0.07] hover:border-amber/30 hover:border-t-amber hover:-translate-y-1 transition-all duration-300"
+                    className="vehicle-card fade-up relative rounded-2xl overflow-hidden group"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1, type: 'spring', stiffness: 80, damping: 20 }}
+                    whileHover={{ y: -6 }}
                     style={{ transitionDelay: `${index * 100}ms` }}
                   >
-                    {/* Image */}
-                    <div className="relative overflow-hidden bg-[#111]">
-                      <VehicleImage vehicle={vehicle} />
-                      <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
-                      <span className="absolute top-4 right-4 bg-amber text-bg font-bold text-sm px-3.5 py-1.5 shadow-lg">
-                        ${vehicle.price.toLocaleString()}
-                      </span>
-                      {/* Type badge — bottom-left of image */}
-                      <span className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md text-text-dim text-xs font-medium px-3 py-1.5 border border-white/[0.08]">
-                        {vehicle.type}
-                      </span>
-                      {/* Urgency badge — top-left */}
-                      {vehicle.badge && (
-                        <motion.span
-                          initial={{ scale: 0, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          transition={{ type: 'spring', stiffness: 400, damping: 20, delay: 0.2 }}
-                          className={`absolute top-4 left-4 text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 flex items-center gap-1 ${getBadgeStyles(vehicle.badge)}`}
-                        >
-                          <BadgeIcon badge={vehicle.badge} />
-                          {vehicle.badge}
-                        </motion.span>
-                      )}
-                    </div>
+                    {/* Gradient border glow — visible on hover */}
+                    <div className="card-border absolute -inset-[1px] rounded-2xl bg-gradient-to-b from-amber/40 via-amber/10 to-transparent opacity-0 transition-opacity duration-500 pointer-events-none" />
 
-                    {/* Card Body */}
-                    <div className="p-6">
-                      <p className="text-text-dim text-sm mb-1.5">
-                        {vehicle.year}
-                      </p>
-                      <h3 className="text-xl font-bold text-text mb-4">
-                        {vehicle.make}{' '}
-                        <span className="text-amber-light">{vehicle.model}</span>
-                      </h3>
+                    {/* Ambient hover glow */}
+                    <div
+                      className="card-glow absolute -inset-4 rounded-3xl opacity-0 transition-opacity duration-500 pointer-events-none"
+                      style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(232,168,73,0.12) 0%, transparent 70%)' }}
+                    />
 
-                      <div className="flex items-center gap-5 text-text-dim text-sm mb-5 pb-5 border-b border-border">
-                        <span className="flex items-center gap-2">
-                          <svg className="w-4 h-4 text-amber/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M12 6v6l4 2" />
-                          </svg>
-                          {vehicle.miles.toLocaleString()} mi
-                        </span>
-                        <span className="w-1 h-1 bg-amber/30" />
-                        <span className="flex items-center gap-2">
-                          <svg className="w-4 h-4 text-amber/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M12 2v6m0 0L9 5m3 3l3-3M5 12h14M5 12l3-3m-3 3l3 3m8-3l3-3m-3 3l3 3M12 16v6m0 0l-3-3m3 3l3-3" />
-                          </svg>
-                          {vehicle.mpg} MPG
+                    {/* Card inner */}
+                    <div className="relative rounded-2xl overflow-hidden bg-[#13131a] border border-white/[0.06]">
+                      {/* Image section */}
+                      <div className="relative overflow-hidden bg-[#111] h-56">
+                        <VehicleImage vehicle={vehicle} />
+                        {/* Bottom gradient */}
+                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#13131a] via-[#13131a]/70 to-transparent pointer-events-none" />
+
+                        {/* Hover light sweep */}
+                        <div className="card-shine absolute inset-0 w-1/2 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent pointer-events-none" />
+
+                        {/* Price tag — premium floating */}
+                        <div className="absolute top-4 right-4 z-10">
+                          <div className="relative">
+                            <div className="bg-gradient-to-r from-amber to-amber-light px-4 py-2 rounded-lg shadow-xl shadow-amber/20">
+                              <span className="text-bg font-bold text-base tracking-tight">
+                                ${vehicle.price.toLocaleString()}
+                              </span>
+                            </div>
+                            {/* Little notch */}
+                            <div className="absolute -bottom-1 right-4 w-2 h-2 bg-amber-light rotate-45" />
+                          </div>
+                        </div>
+
+                        {/* Urgency badge — top-left */}
+                        {vehicle.badge && (
+                          <motion.span
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ type: 'spring', stiffness: 400, damping: 20, delay: 0.2 + index * 0.1 }}
+                            className={`absolute top-4 left-4 z-10 text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-1.5 ${getBadgeStyles(vehicle.badge)}`}
+                          >
+                            <BadgeIcon badge={vehicle.badge} />
+                            {vehicle.badge}
+                          </motion.span>
+                        )}
+
+                        {/* Year overlay on image bottom */}
+                        <span className="absolute bottom-3 left-5 text-text/50 text-xs font-semibold tracking-wider z-10">
+                          {vehicle.year}
                         </span>
                       </div>
 
-                      <button
-                        onClick={() => setSelectedVehicle(vehicle)}
-                        className="w-full border-2 border-amber/70 text-amber skew-x-[-4deg] py-3 text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:bg-amber hover:text-bg hover:shadow-[0_0_20px_rgba(232,168,73,0.2)] cursor-pointer"
-                      >
-                        <span className="skew-x-[4deg] inline-block">View Details</span>
-                      </button>
+                      {/* Card Body */}
+                      <div className="p-5 pt-3">
+                        {/* Vehicle name */}
+                        <h3 className="text-lg font-bold text-text mb-3">
+                          {vehicle.make}{' '}
+                          <span className="text-amber">{vehicle.model}</span>
+                        </h3>
+
+                        {/* Spec chips row */}
+                        <div className="grid grid-cols-2 gap-2 mb-4">
+                          <div className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2">
+                            <MilesIcon />
+                            <span className="text-text-dim text-xs">{vehicle.miles.toLocaleString()} mi</span>
+                          </div>
+                          <div className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2">
+                            <MpgIcon />
+                            <span className="text-text-dim text-xs">{vehicle.mpg} MPG</span>
+                          </div>
+                          <div className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2">
+                            <EngineIcon />
+                            <span className="text-text-dim text-xs">{vehicle.engine}</span>
+                          </div>
+                          <div className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2">
+                            <DrivetrainIcon />
+                            <span className="text-text-dim text-xs">{vehicle.drivetrain}</span>
+                          </div>
+                        </div>
+
+                        {/* Divider */}
+                        <div className="h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent mb-4" />
+
+                        {/* View Details button — premium with shimmer */}
+                        <button
+                          onClick={() => setSelectedVehicle(vehicle)}
+                          className="view-btn relative w-full overflow-hidden bg-gradient-to-r from-amber to-amber-light text-bg py-3.5 rounded-lg text-sm font-bold uppercase tracking-wider transition-all duration-300 hover:shadow-[0_0_30px_rgba(232,168,73,0.3)] cursor-pointer"
+                        >
+                          <span className="relative z-10 inline-flex items-center gap-2">
+                            View Details
+                            <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </span>
+                          {/* Shimmer sweep on hover */}
+                          <span className="btn-shimmer absolute top-0 bottom-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" style={{ left: '-100%' }} />
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             )}
 
-            {/* View All CTA */}
+            {/* View All CTA — premium upgrade */}
             <div className="text-center mt-16 fade-up">
-              <button className="inline-flex items-center gap-3 bg-amber text-bg font-bold skew-x-[-4deg] px-10 py-4 text-base uppercase tracking-wider transition-all duration-300 hover:shadow-[0_0_30px_rgba(232,168,73,0.3)] hover:scale-105 cursor-pointer">
-                <span className="skew-x-[4deg] inline-flex items-center gap-3">
-                  View All Inventory
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14" />
-                    <path d="M12 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </button>
+              <div className="inline-block relative">
+                {/* Ambient glow */}
+                <div
+                  className="absolute -inset-8 pointer-events-none"
+                  style={{ background: 'radial-gradient(ellipse, rgba(232,168,73,0.1) 0%, transparent 70%)' }}
+                />
+                <button className="relative inline-flex items-center gap-3 bg-gradient-to-r from-amber to-amber-light text-bg font-bold skew-x-[-4deg] px-12 py-4 text-base uppercase tracking-wider transition-all duration-300 hover:shadow-[0_0_40px_rgba(232,168,73,0.35)] hover:scale-105 cursor-pointer">
+                  <span className="skew-x-[4deg] inline-flex items-center gap-3">
+                    View All Inventory
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14" />
+                      <path d="M12 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
