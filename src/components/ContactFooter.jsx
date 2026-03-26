@@ -8,6 +8,7 @@ const locations = [
     address: '4401 Tinker Diagonal St.',
     city: 'Del City, OK 73115',
     phone: '(405) 606-4000',
+    primary: true,
   },
   {
     name: 'AutoMax Hyundai Norman',
@@ -134,35 +135,86 @@ export default function ContactFooter() {
           </h2>
         </div>
 
+        {/* Animated glow keyframes for primary location */}
+        <style>{`
+          @keyframes glowPulse {
+            0%, 100% {
+              box-shadow: 0 0 15px rgba(232,168,73,0.2), 0 0 30px rgba(232,168,73,0.1);
+            }
+            50% {
+              box-shadow: 0 0 25px rgba(232,168,73,0.4), 0 0 50px rgba(232,168,73,0.2), 0 0 80px rgba(232,168,73,0.1);
+            }
+          }
+          @keyframes shimmerBorder {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+          }
+        `}</style>
+
         {/* Location Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {locations.map((loc, i) => (
             <div
               key={loc.name}
-              className="fade-up bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] border-t-2 border-t-amber/30 hover:border-amber/30 hover:bg-white/[0.07] hover:border-t-amber p-8 transition-all duration-300 hover:-translate-y-1"
+              className={`fade-up relative ${loc.primary ? 'md:-translate-y-2' : ''}`}
               style={{ transitionDelay: `${i * 100}ms` }}
             >
-              <MapPinIcon />
-              <h3 className="text-xl font-semibold text-amber mt-4 font-body">
-                {loc.name}
-              </h3>
-              <p className="text-text-dim mt-2 text-sm leading-relaxed font-body">
-                {loc.address}
-                <br />
-                {loc.city}
-              </p>
-              <a
-                href={`tel:${loc.phone.replace(/[^\d+]/g, '')}`}
-                className="block text-text font-bold text-lg mt-3 font-body hover:text-amber transition-colors"
+              {/* Animated glow border for primary location */}
+              {loc.primary && (
+                <>
+                  {/* Animated gradient border via background trick */}
+                  <div
+                    className="absolute -inset-[2px] rounded-lg pointer-events-none"
+                    style={{
+                      background: 'linear-gradient(90deg, #E8A849, #f5d38e, #E8A849, #c4862a, #E8A849)',
+                      backgroundSize: '200% 100%',
+                      animation: 'shimmerBorder 3s linear infinite',
+                    }}
+                  />
+                  {/* Pulsing outer glow */}
+                  <div
+                    className="absolute -inset-[2px] rounded-lg pointer-events-none"
+                    style={{
+                      animation: 'glowPulse 3s ease-in-out infinite',
+                    }}
+                  />
+                  {/* "Our Location" badge */}
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 bg-amber px-4 py-1 rounded-full shadow-lg shadow-amber/30">
+                    <span className="text-bg text-[10px] font-bold uppercase tracking-widest font-body whitespace-nowrap">Our Location</span>
+                  </div>
+                </>
+              )}
+
+              {/* Card content */}
+              <div
+                className={`relative rounded-lg p-8 transition-all duration-300 hover:-translate-y-1 ${
+                  loc.primary
+                    ? 'bg-[#13131a] backdrop-blur-xl'
+                    : 'bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] border-t-2 border-t-amber/30 hover:border-amber/30 hover:bg-white/[0.07] hover:border-t-amber'
+                }`}
               >
-                {loc.phone}
-              </a>
-              <p className="text-text-dim text-sm mt-2 font-body">
-                Mon&ndash;Sat 9AM&ndash;8PM
-              </p>
-              <p className="text-amber/70 text-sm font-medium font-body">
-                Closed Sunday
-              </p>
+                <MapPinIcon />
+                <h3 className="text-xl font-semibold text-amber mt-4 font-body">
+                  {loc.name}
+                </h3>
+                <p className="text-text-dim mt-2 text-sm leading-relaxed font-body">
+                  {loc.address}
+                  <br />
+                  {loc.city}
+                </p>
+                <a
+                  href={`tel:${loc.phone.replace(/[^\d+]/g, '')}`}
+                  className="block text-text font-bold text-lg mt-3 font-body hover:text-amber transition-colors"
+                >
+                  {loc.phone}
+                </a>
+                <p className="text-text-dim text-sm mt-2 font-body">
+                  Mon&ndash;Sat 9AM&ndash;8PM
+                </p>
+                <p className="text-amber/70 text-sm font-medium font-body">
+                  Closed Sunday
+                </p>
+              </div>
             </div>
           ))}
         </div>
